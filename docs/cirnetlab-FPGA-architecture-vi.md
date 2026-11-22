@@ -1,10 +1,9 @@
 # CIRNET FPGA — Kiến trúc phần cứng, RTL và thực hành kỹ thuật
 
 > **Tên kiến trúc:** CIRNET FPGA Architecture.  
-> **Organization:** [`cirnetlab`](https://github.com/orgs/cirnetlab/repositories) · **Repository chủ sở hữu:** [`cirnet-fpga`](https://github.com/cirnetlab/cirnet-fpga).  
+> **Organization:** [`cirnetlab`](https://github.com/orgs/cirnetlab/repositories) · **Repository chủ sở hữu:** [`cirnet-embedded-hardware`](https://github.com/cirnetlab/cirnet-embedded-hardware).<br>
 > **Ngôn ngữ tài liệu:** Tiếng Việt · **Tệp:** `cirnetlab-FPGA-architecture-vi.md`.  
-> **Kiến trúc tổng thể:** `cirnetlab-architecture-en.md` (**CIRNET — STEM & Engineering Learning Ecosystem**).  
-> **Đặc tả điện tử chuyên ngành:** `cirnet-architecture-lab-first.md` (**CIRNET Lab-First**).  
+> **Tài liệu liên quan:** [Kiến trúc Ecosystem](cirnetlab-architecture-vi.md) · [CIRNET Lab-First](cirnet-architecture-lab-first-vi.md) · [English](cirnetlab-FPGA-architecture-en.md).<br>
 > **Ngày đối chiếu nguồn:** 2026-11-15. **Tình trạng:** kiến trúc đích, KHÔNG phải chứng nhận phần cứng/RTL đã được nghiệm thu.
 
 ## Mục đích và phạm vi
@@ -13,7 +12,9 @@
 
 **Ranh giới của tài liệu:** kiến trúc fabric FPGA, thiết bị ngoại vi gắn trực tiếp với FPGA, protected I/O, routing/scan, instruments, capture/memory/transport, RTL verification và giao điểm với các Repo khác. Không tái định nghĩa các backend nghiệp vụ giáo dục, API công khai, rubric hoặc quyền người dùng.
 
-### Bối cảnh thực tế cần tôn trọng
+### Bối cảnh triển khai tại ngày đối chiếu
+
+[Kiến trúc hệ thống Next](vi/architecture/system.md) mô tả runtime native và trạng thái nghiệm thu vật lý.
 
 - `cirnet-fpga` trên `master` hiện có **Lab-First RTL scaffold**, với `fpga/experiment-controller/rtl/top.v`, `fpga/instrument/rtl/top.v`, testbench `fpga/simulation/`, verification tooling, lockfiles và tài liệu EN/VI. README gọi đây là **source scaffold 0.2.2 candidate**; **không** tuyên bố có firmware trên board thật.
 - `cirnet-hardware` sở hữu **Rust HardwareStation, private transport, Stop, station lifecycle và worker supervision**; `cirnet-remote` sở hữu quyền truy cập, scheduler/lease, experiment và system release selection.
@@ -49,8 +50,8 @@
 
 ### Cách đọc các tham chiếu
 
-- **[ECOSYSTEM]**: kiến trúc chung `cirnetlab-architecture-en.md`.
-- **[LF]**: `cirnet-architecture-lab-first.md`; chuẩn chuyên sâu về observed topology, safe Run, endpoint resolution và không tự sửa student wiring.
+- **[ECOSYSTEM]**: [Kiến trúc Ecosystem](cirnetlab-architecture-vi.md).
+- **[LF]**: [CIRNET Lab-First](cirnet-architecture-lab-first-vi.md), nguồn có thẩm quyền về topology quan sát, Run an toàn, ánh xạ endpoint và quy tắc giữ nguyên dây nối của sinh viên.
 - **[CONTRACTS]**: schema/SDK/Hardware RPC/ICD **chọn theo artifact thực** từ `cirnet-contracts`.
 - **[F0]**: bản thảo thiết kế FPGA lịch sử được cung cấp trong yêu cầu; dùng làm cơ sở chi tiết kỹ thuật, **không** là implementation authority hoặc wire ABI hiện tại.
 - **[H1]–[H5]**: tài liệu nhà sản xuất tham khảo tại phụ lục; không chứng minh board CIRNET đã đạt các mức đó.
@@ -1481,7 +1482,7 @@ Giữ `OPEN/NOT_RUN/UNAVAILABLE` cho tới khi có đúng loại bằng chứng.
 ## 39.2 Nguồn tài liệu
 
 - **Tài liệu gốc do người dùng cung cấp:** bản dự thảo FPGA phần cứng lịch sử [F0], chứa sáu planes, 22 boundary checks, 22 verification properties, 9 closure gates, khối tính SDRAM/pin và hardware safety. Nội dung kỹ thuật hợp lý được bảo toàn, còn tên tổ chức cũ và các giả định nguồn lỗi thời đã được loại bỏ.
-- **Kiến trúc mới:** `cirnetlab-architecture-en.md` (Ecosystem), `cirnet-architecture-lab-first.md` (Lab-First).
+- **Kiến trúc hiện hành:** [Kiến trúc Ecosystem](cirnetlab-architecture-vi.md) và [CIRNET Lab-First](cirnet-architecture-lab-first-vi.md).
 - **Mã nguồn tham khảo (2026-11-15):** `cirnetlab/cirnet-fpga` branch `master`, cùng README `cirnet-hardware`, `cirnet-contracts`, `cirnet-simulator`; đây là source observation, không thay HIL.
 - **Nguồn phần cứng [H1]–[H5]:** bảng và liên kết bên dưới là references phục vụ lựa chọn/đối chiếu part, không xác nhận BOM hoặc board đã đạt.
 

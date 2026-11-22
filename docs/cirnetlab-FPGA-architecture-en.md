@@ -1,10 +1,9 @@
 # CIRNET FPGA — Hardware, RTL, and Engineering Education Architecture
 
 > **Architecture name:** CIRNET FPGA Architecture (no version suffix in the architecture name).  
-> **Organization:** [`cirnetlab`](https://github.com/orgs/cirnetlab/repositories) · **Owning repository:** [`cirnet-fpga`](https://github.com/cirnetlab/cirnet-fpga).  
+> **Organization:** [`cirnetlab`](https://github.com/orgs/cirnetlab/repositories) · **Owning repository:** [`cirnet-embedded-hardware`](https://github.com/cirnetlab/cirnet-embedded-hardware).<br>
 > **Document language:** English · **File:** `cirnetlab-FPGA-architecture-en.md`.  
-> **Ecosystem architecture:** `cirnetlab-architecture-en.md` (**CIRNET — STEM & Engineering Learning Ecosystem**).  
-> **Domain-specific electronics specification:** `cirnet-architecture-lab-first.md` (**CIRNET Lab-First**).  
+> **Related documents:** [Ecosystem Architecture](cirnetlab-architecture-en.md) · [CIRNET Lab-First](cirnet-architecture-lab-first-en.md) · [Tiếng Việt](cirnetlab-FPGA-architecture-vi.md).<br>
 > **Source review date:** 2026-11-15. **Status:** target architecture, NOT a certification that the hardware or RTL has passed acceptance testing.
 
 ## Purpose and scope
@@ -13,7 +12,9 @@ This specification brings the earlier FPGA architecture into the **CIRNET** ecos
 
 **Document boundary:** FPGA fabric architecture, peripherals connected directly to the FPGA, protected I/O, routing/scanning, instruments, capture/memory/transport, RTL verification, and interfaces to other repositories. This document does not redefine educational business backends, public APIs, grading rubrics, or user permissions.
 
-### Current implementation context that must be respected
+### Implementation context at the review date
+
+The [Next system architecture](en/architecture/system.md) describes the native runtime and physical qualification status.
 
 - On `master`, `cirnet-fpga` currently contains a **Lab-First RTL scaffold**, including `fpga/experiment-controller/rtl/top.v`, `fpga/instrument/rtl/top.v`, testbenches under `fpga/simulation/`, verification tooling, lockfiles, and EN/VI documentation. Its README describes a **0.2.2 source scaffold candidate**; it does **not** claim board-ready firmware.
 - `cirnet-hardware` owns the **Rust HardwareStation, private transport, Stop, station lifecycle, and worker supervision**; `cirnet-remote` owns authorization, scheduler/leases, experiments, and system-release selection.
@@ -49,8 +50,8 @@ This specification brings the earlier FPGA architecture into the **CIRNET** ecos
 
 ### Reference conventions
 
-- **[ECOSYSTEM]**: the general architecture `cirnetlab-architecture-en.md`.
-- **[LF]**: `cirnet-architecture-lab-first.md`; domain authority for observed topology, safe Run, endpoint resolution, and the prohibition on repairing student wiring.
+- **[ECOSYSTEM]**: the [Ecosystem Architecture](cirnetlab-architecture-en.md).
+- **[LF]**: [CIRNET Lab-First](cirnet-architecture-lab-first-en.md), the domain authority for observed topology, safe Run, endpoint resolution, and the prohibition on repairing student wiring.
 - **[CONTRACTS]**: schemas/SDK/Hardware RPC/ICD **selected by real artifacts** from `cirnet-contracts`.
 - **[F0]**: the historical FPGA design draft supplied for this work; it informs technical detail but **does not** define the current implementation authority or wire ABI.
 - **[H1]–[H5]**: manufacturer references in the appendix; they do not establish that a CIRNET board has achieved those specifications.
@@ -1477,7 +1478,7 @@ Keep these items `OPEN/NOT_RUN/UNAVAILABLE` until supported by the appropriate e
 ## 39.2 Source material
 
 - **User-provided source:** historical FPGA hardware design [F0], including six planes, 22 boundary checks, 22 verification properties, nine closure gates, SDRAM/pin calculations, and hardware safety. Sound technical principles were retained; obsolete organization branding and outdated source assumptions were removed.
-- **Current architecture:** `cirnetlab-architecture-en.md` (Ecosystem), `cirnet-architecture-lab-first.md` (Lab-First).
+- **Current architecture:** [Ecosystem Architecture](cirnetlab-architecture-en.md) and [CIRNET Lab-First](cirnet-architecture-lab-first-en.md).
 - **Repository source observations (2026-11-15):** `cirnetlab/cirnet-fpga` branch `master`, and the READMEs of `cirnet-hardware`, `cirnet-contracts`, and `cirnet-simulator`; observing source is not HIL validation.
 - **Hardware references [H1]–[H5]:** tables/links below inform component selection/review and do not prove a final BOM or board specification.
 

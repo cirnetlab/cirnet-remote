@@ -38,6 +38,21 @@ của từng tệp đóng gói. Lưu tệp lựa chọn và SHA-256 của manife
 bằng chứng kiểm tra. Các môi trường biên dịch khác nhau có thể tạo sản phẩm
 khác byte với cùng bộ nguồn đầu vào.
 
+## Khởi chạy môi trường phát triển cục bộ
+
+Gọi launcher trong gói bằng PowerShell 7.4+ khi điều phối quy trình này.
+Dùng cùng `-DataDirectory` bên ngoài checkout, `-Port` và
+`-HardwarePort` cho `Start` và `Stop`. Chỉ định
+`-InitializeDatabase` để khởi tạo SQLite khi chưa có cơ sở dữ liệu. Start
+kiểm tra cơ sở dữ liệu hiện có mà không áp dụng migration hay tạo tài khoản
+quản trị. Khi dùng Vite, truyền `-DevPort` vào `Start` để chỉ cấp quyền
+cho đúng origin `127.0.0.1` đó khi gửi yêu cầu HTTP thay đổi dữ liệu và mở
+kết nối WebSocket. Ba cổng phải khác nhau.
+
+Để đọc trạng thái sẵn sàng RPC, đặt `CIRNET_HARDWARE_GRPC_TARGET` thành
+endpoint loopback đã chọn rồi gọi `cirnet-remote.exe --check-hardware`.
+Lệnh kiểm tra trạm số ảo đang khả dụng mà không mở cơ sở dữ liệu.
+
 ## Kiểm tra bản đã cài đặt
 
 Trên máy Windows phát triển, đọc biên nhận build đã duyệt:

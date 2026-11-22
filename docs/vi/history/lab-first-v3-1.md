@@ -1,10 +1,12 @@
 # CIRNET Remote — Lab-First v3.1
 
-[English](../../en/architecture/lab-first-v3-1.md) · [Kiến trúc hệ thống](system.md)
+> **Hồ sơ lịch sử.** Trang này mô tả topology phát hành trước đây. Dùng [CIRNET Lab-First](../../cirnet-architecture-lab-first-vi.md) cho các quyết định kiến trúc hiện tại.
+
+[English](../../en/history/lab-first-v3-1.md) · [Kiến trúc hệ thống](../architecture/system.md)
 
 Đặc tả này ghi các yêu cầu hệ thống và an toàn Lab-First của Remote.
 Dùng [kiến trúc Lab-First chính thức](https://github.com/cirnetlab/cirnet-rules/blob/887578e8c0aa06882cfa19138955fb54019fb428/docs/tai-lieu-kien-tuc-he-thong/cirnet-architecture-lab-first-vi.md) cho quyết định liên repo và các tiêu chí nghiệm thu toàn Lab.
-[Kiến trúc hệ thống](system.md) mô tả topology của bản đang chọn, còn
+[Kiến trúc hệ thống](../architecture/system.md) mô tả topology của bản đang chọn, còn
 [trạng thái chuyển đổi](https://github.com/cirnetlab/cirnet-remote/blob/df11ba3f53e33bf119217c396343b0bae1149faa/docs/vi/architecture/native-migration-status.md) ghi các tổ hợp native đã
 xác minh. Báo cáo theo ngày và đề xuất lưu trữ có phạm vi riêng.
 [Tên và bí danh tương thích](https://github.com/cirnetlab/cirnet-remote/blob/df11ba3f53e33bf119217c396343b0bae1149faa/docs/vi/operations/namespace-compatibility.md)
@@ -40,7 +42,7 @@ mới dùng hình học `FlexibleMountV2` tự động. V1 uốn tay đã lưu v
 nguyên ý nghĩa. Các thao tác tài liệu và bài tập `/api/v2` nhận đồ thị mới song
 song với hợp đồng cũ đã chốt. Tọa độ tự thân không tạo net. Giữ lệnh, lịch sử,
 kết nối tường minh, bóng xem trước, gizmo, camera và quyền sở hữu tài nguyên.
-Bóng chỉ vào đồ thị khi xác nhận đặt. [Đặt linh kiện](component-placement.md) · [Hợp đồng gắn linh hoạt](https://github.com/cirnetlab/cirnet-contracts/blob/54ef9f6a11f4906c11ec9789de47cf06d5100734/contracts/design-models/flexible-placement.md)
+Bóng chỉ vào đồ thị khi xác nhận đặt. [Đặt linh kiện](../architecture/component-placement.md) · [Hợp đồng gắn linh hoạt](https://github.com/cirnetlab/cirnet-contracts/blob/54ef9f6a11f4906c11ec9789de47cf06d5100734/contracts/design-models/flexible-placement.md)
 
 Quy tắc cạnh trùng, hướng, độ rộng và ngõ kích bổ sung áp dụng khi thiết kế.
 `DetectedTopologyGraph` giữ dây nối sai, thiếu, phát sinh, linh kiện sai hoặc
@@ -129,7 +131,7 @@ mong đợi và quan sát được, cùng các trường hợp bảng chân tr�
 | Sai IC, dây nối hoặc cấu trúc, nhưng vẫn an toàn | `RUN_NORMAL` hoặc `RUN_GUARDED` khi thực thi được |
 | Chưa rõ danh tính, nhưng an toàn, thực thi được và có bảo vệ | `RUN_GUARDED` |
 
-Bảo vệ điện cần bằng chứng riêng. [Hợp đồng an toàn vật lý](physical-lab-safety-contract.md)
+Bảo vệ điện cần bằng chứng riêng. [Hợp đồng an toàn vật lý](../architecture/physical-lab-safety-contract.md)
 
 ## Biên dịch và định tuyến
 
@@ -191,7 +193,7 @@ tường minh. Alembic giữ dữ liệu, lượt thuê và cách ly cũ. Chuy�
 khách cần chứng minh quyền giữ phiên và xác nhận. Chỉ bootstrap hoặc thao tác
 xác thực tường minh thiết lập thông tin xác thực. Khi đổi phiên, Web kết thúc
 kết nối cũ và đối soát kết quả chưa rõ bằng lượt đọc phiên có giới hạn.
-[Xác thực và migration](auth-and-migrations.md)
+[Xác thực và migration](../architecture/auth-and-migrations.md)
 
 Đọc và điều khiển có vòng đời riêng. `X-Control-Client` và kết nối sự kiện mang
 định danh tab tạm thời. Run gắn định danh với phiên hiện tại. Tab quan sát chỉ
@@ -208,7 +210,7 @@ tín hiệu đồng bộ lại. Create/Run/Stop giữ định danh thao tác b�
 chủ sở hữu. ACK Run khác với hoàn thành đo. ACK Stop cần giải phóng an toàn.
 Khóa quan sát đang chờ được lưu theo danh tính với giới hạn. Tải lại và kết
 nối lại chỉ khôi phục khả năng quan sát, đọc kết quả theo khóa cũ.
-[Quan sát đang chờ](pending-observations.md)
+[Quan sát đang chờ](../architecture/pending-observations.md)
 
 Sinh viên thấy bài đã công bố với các trường công khai. Chính sách mặc định
 `observed_only` công bố kết quả kiểm tra, đánh giá và số đo quan sát được.
@@ -227,7 +229,7 @@ Miền của cổng do danh mục và namespace `signal_domains` có phiên bả
 Linh kiện chưa rõ giữ miền chưa rõ. `MIXED` chỉ biểu diễn miền hỗn hợp.
 Namespace tương lai có thể lưu, còn thực thi cần adapter. Bộ mô phỏng tương
 tự, SPICE và hỗn hợp trả trạng thái chưa khả dụng có kiểu và không bật
-`virtual_analog`. [Miền tín hiệu và mô phỏng](signal-domains-and-simulation.md)
+`virtual_analog`. [Miền tín hiệu và mô phỏng](../architecture/signal-domains-and-simulation.md)
 
 Kết quả gồm trạng thái, quyết định, an toàn, cấu trúc, chức năng, mẫu số, bản
 thu, mốc thời gian, cảnh báo/lỗi và quan sát. Giao diện hiện riêng SAFETY,
@@ -256,7 +258,7 @@ và 4.096 tệp cho một API ghi. Lệnh bảo trì áp hạn lưu 30 ngày the
 trị 0 tắt hết hạn và vẫn thử lại việc xóa tồn. Stop và giải phóng giữ bản thu
 lịch sử. Kiểm tra chức năng dùng nội dung thô. Signal Monitor chia sẻ hoặc
 hủy lượt tải theo quyền. Dọn dẹp an toàn khi khởi động chạy trước khi chuyển
-nội dung cũ lưu cùng JSON. [Danh mục bản thu](capture-catalog.md)
+nội dung cũ lưu cùng JSON. [Danh mục bản thu](../architecture/capture-catalog.md)
 
 `ReadCapture` qua Hardware RPC dùng NCAP có giới hạn trong
 `OperationReply.capture_payload`, tách khỏi `result_json`. Phản hồi 100.000 sự
@@ -303,7 +305,7 @@ ghi yêu cầu hủy trước khi chờ ACK cấu hình của lần chạy. Capa
 hình và Stop từ xa chạy ngoài khóa trạng thái toàn cục. Giữ suất đến khi xác
 nhận an toàn hoặc cách ly. Generator chưa khả dụng báo hỗ trợ cấu hình lại
 là false. Điều khiển clock/trigger khi chạy là `NOT_IMPLEMENTED`.
-[Cô lập điều khiển và chỉ mục runtime](control-isolation-and-runtime-index.md)
+[Cô lập điều khiển và chỉ mục runtime](../architecture/control-isolation-and-runtime-index.md)
 
 Web kiểm tra và chốt cấu hình thu, clock, Generator và vector thử trước
 Create. Dữ liệu nhập sai chặn gửi và được giữ theo danh tính. Cấu hình
@@ -325,7 +327,7 @@ và cách gắn của Graph 1.0/1.1/1.2. Khả năng biểu diễn số của tr
 revision của đồ thị, bài tập đã công bố và cấu hình. Hàng rào phiên trong
 giao dịch tuần tự hóa ghi với thu hồi và nhận quyền khách. Giảng viên sửa
 nháp và công bố revision riêng. Dạng xem của sinh viên giữ kín đáp án tham
-chiếu. [Dự án và revision](projects-and-revisions.md) · [Công bố bài tập](assignments-and-publication.md)
+chiếu. [Dự án và revision](../architecture/projects-and-revisions.md) · [Công bố bài tập](../architecture/assignments-and-publication.md)
 
 Lõi tài liệu, lịch sử, tuần tự hóa và bộ điều khiển ứng dụng độc lập với
 framework và mạng. Cổng composition tách phụ thuộc vòng giữa store chạy và
@@ -352,7 +354,7 @@ Gói FPGA đã chọn có máy trạng thái điều khiển trừu tượng và
 Truyền thông, thu nhận và thực thi vật lý chưa khả dụng. Bao logic
 `1.0-scaffold` và sơ đồ thanh ghi `1.0-reserved` là hợp đồng của khung.
 Tổng hợp, timing và an toàn điện cần bằng chứng riêng.
-[Đối chiếu hợp đồng FPGA](fpga-contract-conformance.md)
+[Đối chiếu hợp đồng FPGA](../architecture/fpga-contract-conformance.md)
 
 Mục tiêu tương lai EP4CE10E22C8N có SDRAM ngoài, Logic Analyzer, Scope hai
 kênh với ADC/AFE, Generator hai kênh với DAC/tầng ra, điều phối SDRAM dùng
@@ -361,7 +363,7 @@ mạch/bảo vệ, linh kiện, timing và thông số điện là `TBD_BY_HARDW
 
 ## Ranh giới phát hành nhiều repo hiện tại
 
-[Sơ đồ repo](system.md#ranh-giới-hệ-thống) xác định chủ sở hữu mã nguồn.
+[Sơ đồ repo](../architecture/system.md) xác định chủ sở hữu mã nguồn.
 [Khóa phát hành](https://github.com/cirnetlab/cirnet-remote/blob/df11ba3f53e33bf119217c396343b0bae1149faa/migration/python-reference/integration/release-set.json) chọn hệ thống và
 Interface `0.1.4`, API, Contracts, Simulator, Hardware và khung FPGA `0.1.2`.
 Tệp ghi chính xác artifact và khóa công cụ DEV độc lập. CircuitGraph,

@@ -1,6 +1,6 @@
 # Đặc tả mạch và phòng thí nghiệm vật lý
 
-[English](../../en/api/circuit-and-physical-lab.md) · [Tham chiếu đặc tả mạch](circuit-spec-reference.md) · [Kiến trúc Lab-First v3.1](../architecture/lab-first-v3-1.md) · [API ứng dụng](application.md)
+[English](../../en/api/circuit-and-physical-lab.md) · [Tham chiếu đặc tả mạch](circuit-spec-reference.md) · [CIRNET Lab-First](../../cirnet-architecture-lab-first-vi.md) · [API ứng dụng](application.md)
 
 ## CircuitGraph và cách đặt linh kiện
 

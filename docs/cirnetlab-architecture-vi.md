@@ -2,7 +2,7 @@
 
 > **Tài liệu:** `cirnetlab-architecture-vi.md` · **Loại:** Kiến trúc mục tiêu cấp tổ chức  
 > **Organization:** [`cirnetlab`](https://github.com/orgs/cirnetlab/repositories) · **Tên kiến trúc:** **CIRNET — STEM & Engineering Learning Ecosystem** (không gắn số phiên bản vào tên).  
-> **Tài liệu liên quan:** [Kiến trúc Lab-First](cirnet-architecture-lab-first-vi.md) · [Kiến trúc FPGA](../cirnetlab-FPGA-architecture-vi.md) · [English](cirnetlab-architecture-en.md)  
+> **Tài liệu liên quan:** [Kiến trúc Lab-First](cirnet-architecture-lab-first-vi.md) · [Kiến trúc FPGA](cirnetlab-FPGA-architecture-vi.md) · [English](cirnetlab-architecture-en.md)<br>
 > **Ảnh chụp nguồn:** danh sách 33 Repository GitHub truy cập được và tài liệu Lab-First được rà soát ngày **2026-11-15**.  
 > **Tình trạng:** đặc tả **kiến trúc mục tiêu đề xuất để phê duyệt**; không đồng nghĩa các mô-đun đã được triển khai hoặc đã nghiệm thu production.  
 > **Phạm vi:** toàn bộ sản phẩm, dịch vụ, công cụ phát triển, chuẩn dữ liệu, giáo dục, kỹ thuật, thiết bị và liên kết liên Repository; **không chia thành các Phase phát triển**.
@@ -316,7 +316,7 @@ Các tác vụ có side effects không được tự replay khi reconnect; `acce
 
 ## 8. CIRNET Lab-First là chuyên ngành được kế thừa nguyên vẹn về an toàn
 
-[Lab-First](cirnet-architecture-lab-first-vi.md) quy định thực thi Lab điện tử, ánh xạ endpoint và an toàn điện. [Kiến trúc FPGA](../cirnetlab-FPGA-architecture-vi.md) quy định hành vi board và RTL trong các giới hạn đó. Tài liệu Ecosystem quy định cách Lab tích hợp với các miền khác.
+[Lab-First](cirnet-architecture-lab-first-vi.md) quy định thực thi Lab điện tử, ánh xạ endpoint và an toàn điện. [Kiến trúc FPGA](cirnetlab-FPGA-architecture-vi.md) quy định hành vi board và RTL trong các giới hạn đó. Tài liệu Ecosystem quy định cách Lab tích hợp với các miền khác.
 
 ### 8.1 Virtual Digital E2E
 
@@ -622,7 +622,7 @@ Unit/domain tests đặt gần code owner. Cross-repo conformance fixtures do Co
 
 ### 18.1 Một tài liệu kiến trúc chuẩn, nhiều đặc tả chuyên sâu
 
-Cặp Anh–Việt này là [tài liệu Ecosystem chuẩn của bộ quy tắc](../../vi/policies/architecture.md) về ranh giới tổ chức và tích hợp. Phê duyệt và nơi công bố lâu dài cấp tổ chức vẫn là quyết định mở (§21). Repo sản phẩm liên kết đến tài liệu này và kiến trúc Lab-First hoặc FPGA tương ứng. Cập nhật cặp ngôn ngữ theo cùng nội dung và giữ các phiên bản lịch sử trong Git.
+Cặp Anh–Việt này là tham chiếu kiến trúc đích Ecosystem có thẩm quyền về ranh giới tổ chức và tích hợp trong các kho Next. Repo sản phẩm liên kết đến tài liệu này và kiến trúc Lab-First hoặc FPGA tương ứng. Cập nhật cặp ngôn ngữ theo cùng nội dung và giữ các phiên bản lịch sử trong Git.
 
 ### 18.2 Quy tắc cho AI Agents
 

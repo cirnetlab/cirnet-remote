@@ -9,7 +9,7 @@ use cirnet_remote_native::{
     hardware::HardwareClient,
     http_api::{self, AppState, WritableAuth},
     projects::ProjectService,
-    stations::StationService,
+    stations::{StationService, VIRTUAL_STATION},
     websocket::{SocketLimits, WebSocketState},
 };
 use cirnet_remote_native::{diagnostics::safety_log, error::ApiError};
@@ -36,6 +36,7 @@ async fn run() -> Result<(), String> {
     let mut listen = "127.0.0.1:8000".to_string();
     let (mut stdin_shutdown, mut migrate, mut export_openapi) = (false, false, false);
     let (mut check, mut maintenance, mut dry_run) = (false, false, false);
+    let mut check_hardware = false;
     let mut limit = None;
     let mut admin = None;
     let mut display_name = None;
@@ -45,6 +46,7 @@ async fn run() -> Result<(), String> {
         match argument.as_str() {
             "--migrate" => migrate = true,
             "--check" => check = true,
+            "--check-hardware" => check_hardware = true,
             "--bootstrap-admin" => admin = Some(arguments.next().ok_or("Missing username")?),
             "--display-name" => {
                 display_name = Some(arguments.next().ok_or("Missing display name")?)
@@ -80,7 +82,7 @@ async fn run() -> Result<(), String> {
             "--help" => {
                 println!(
                     "cirnet-remote [--listen ADDRESS] [--web-root DIRECTORY] [--exit-on-stdin-eof]\n\
-                     cirnet-remote --version | --migrate | --check | --export-openapi | --route-inventory\n\
+                     cirnet-remote --version | --migrate | --check | --check-hardware | --export-openapi | --route-inventory\n\
                      cirnet-remote --bootstrap-admin USER [--display-name NAME]\n\
                      cirnet-remote --capture-maintenance [--limit COUNT] [--dry-run]"
                 );
@@ -91,15 +93,41 @@ async fn run() -> Result<(), String> {
     }
     let variables: HashMap<String, String> = std::env::vars().collect();
     let config = Config::from_vars(&variables)?;
-    if [migrate, check, export_openapi, admin.is_some(), maintenance]
-        .into_iter()
-        .filter(|mode| *mode)
-        .count()
+    if [
+        migrate,
+        check,
+        check_hardware,
+        export_openapi,
+        admin.is_some(),
+        maintenance,
+    ]
+    .into_iter()
+    .filter(|mode| *mode)
+    .count()
         > 1
         || display_name.is_some() && admin.is_none()
         || (limit.is_some() || dry_run) && !maintenance
     {
         return Err("Conflicting command options".into());
+    }
+    if check_hardware {
+        let hardware = HardwareClient::new(&config.hardware_target)
+            .map_err(|err| format!("Hardware RPC endpoint is invalid: {}", err.code))?;
+        let capabilities = hardware
+            .capabilities(VIRTUAL_STATION)
+            .await
+            .map_err(|err| format!("Hardware RPC capability check failed: {}", err.code))?;
+        if capabilities.mode != "simulation"
+            || !capabilities.available
+            || !capabilities.virtual_digital
+        {
+            return Err("Hardware virtual digital station is unavailable".into());
+        }
+        println!(
+            "{}",
+            serde_json::json!({"status": "ok", "station_id": VIRTUAL_STATION})
+        );
+        return Ok(());
     }
     if migrate {
         let report = cirnet_remote_native::db::migrations::migrate(&config.database_url)

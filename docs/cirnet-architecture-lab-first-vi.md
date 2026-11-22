@@ -1,11 +1,13 @@
 # CIRNET Lab-First — Kiến trúc hệ thống Lab
 
 > **Phạm vi:** Lab điện tử ảo và vật lý trong sáu repository Lab-First.  
-> **Tài liệu liên quan:** [Kiến trúc Ecosystem](cirnetlab-architecture-vi.md) · [Kiến trúc FPGA](../cirnetlab-FPGA-architecture-vi.md) · [English](cirnet-architecture-lab-first-en.md)  
+> **Tài liệu liên quan:** [Kiến trúc Ecosystem](cirnetlab-architecture-vi.md) · [Kiến trúc FPGA](cirnetlab-FPGA-architecture-vi.md) · [English](cirnet-architecture-lab-first-en.md)<br>
 > **Tên kiến trúc chuẩn:** **CIRNET Lab-First** (không gắn phiên bản vào tên).  
 > **Định hướng kỹ thuật:** **Rust core services + C++ Simulator · Contract-driven · Virtual-to-Physical · Safety-gated · Lab-first**.  
 > **Tài liệu nguồn:** `cirnet-Remote_Architecture_Lab-First.md`; được tái cấu trúc và chuẩn hóa cho sáu Repository, bổ sung các ranh giới đã xác định trong mã nguồn hiện có.  
 > **Ngày rà soát cơ sở:** 2026-11-15. Các quan sát triển khai bên dưới mô tả thời điểm đó. Nghiệm thu production hoặc an toàn điện cần bằng chứng riêng cho cấu hình đã chọn.
+>
+> **Triển khai Next:** [Kiến trúc hệ thống](vi/architecture/system.md) ghi topology native hiện tại và quyền sở hữu của các kho.
 
 ## 0. Tóm tắt điều hành
 
@@ -1151,7 +1153,7 @@ Mạch sinh viên khác vị trí giảng viên, cố tình đấu sai một dâ
 
 ## 23. Tài liệu chuẩn và quy trình cập nhật xuyên Repo
 
-[Chính sách kiến trúc của bộ quy tắc](../../vi/policies/architecture.md) dùng cặp Anh–Việt này cho thực thi Lab và an toàn điện. [Kiến trúc Ecosystem](cirnetlab-architecture-vi.md) quy định ranh giới tổ chức và tích hợp giữa các miền. Tài liệu của từng chủ sở hữu liên kết tới nguồn có thẩm quyền và ghi revision hợp đồng hoặc artifact đang áp dụng.
+Cặp Anh–Việt này quy định thực thi Lab và an toàn điện. [Kiến trúc Ecosystem](cirnetlab-architecture-vi.md) quy định ranh giới tổ chức và tích hợp giữa các miền. Tài liệu của từng chủ sở hữu liên kết tới nguồn có thẩm quyền và ghi revision hợp đồng hoặc artifact đang áp dụng.
 
 - Kiến trúc Lab: tài liệu này và [bản tiếng Anh](cirnet-architecture-lab-first-en.md).
 - Implementation/API/system release authority: `cirnet-remote`.

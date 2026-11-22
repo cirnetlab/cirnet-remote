@@ -1,11 +1,13 @@
 # CIRNET Lab-First — Lab System Architecture
 
 > **Scope:** Virtual and Physical Electronics Lab across the six Lab-First repositories.  
-> **Related documents:** [Ecosystem Architecture](cirnetlab-architecture-en.md) · [FPGA Architecture](../cirnetlab-FPGA-architecture-en.md) · [Tiếng Việt](cirnet-architecture-lab-first-vi.md)  
+> **Related documents:** [Ecosystem Architecture](cirnetlab-architecture-en.md) · [FPGA Architecture](cirnetlab-FPGA-architecture-en.md) · [Tiếng Việt](cirnet-architecture-lab-first-vi.md)<br>
 > **Canonical architecture name:** **CIRNET Lab-First** (no version suffix in the architecture name).  
 > **Technical direction:** **Rust core services + C++ Simulator · Contract-driven · Virtual-to-Physical · Safety-gated · Lab-first**.  
 > **Source document:** `cirnet-Remote_Architecture_Lab-First.md`; restructured and standardized for six repositories, incorporating boundaries identified in the existing codebase.  
 > **Baseline review date:** 2026-11-15. The implementation observations below describe that baseline. Production or electrical safety qualification requires separate evidence for the selected profile.
+>
+> **Next implementation:** The [system architecture](en/architecture/system.md) records the current native topology and repository ownership.
 
 ## 0. Executive Summary
 
@@ -1148,7 +1150,7 @@ This is the **core acceptance scenario** for Lab-First. If the system uses a MUX
 
 ## 23. Canonical Documentation and Cross-Repository Update Process
 
-The [toolkit architecture policy](../../en/policies/architecture.md) uses this EN/VI pair for Lab execution and electrical safety. The [Ecosystem Architecture](cirnetlab-architecture-en.md) governs Organization boundaries and cross-domain integration. Owner documentation links to the applicable authority and records the contract or artifact revision it implements.
+This EN/VI pair governs Lab execution and electrical safety. The [Ecosystem Architecture](cirnetlab-architecture-en.md) governs organization boundaries and cross-domain integration. Owner documentation links to the applicable authority and records the contract or artifact revision it implements.
 
 - Lab architecture: this document and the paired [Vietnamese edition](cirnet-architecture-lab-first-vi.md).
 - Implementation/API/system release authority: `cirnet-remote`.

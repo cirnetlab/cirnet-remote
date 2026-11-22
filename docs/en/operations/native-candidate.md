@@ -39,6 +39,20 @@ size and SHA-256 of every packaged file. Keep the selection and reviewed
 manifest digest with verification evidence. Different compiler environments
 can yield different artifact bytes for the same selected sources.
 
+## Launch for local development
+
+Invoke the bundled launcher from PowerShell 7.4+ when orchestrating this
+workflow. Use the same external `-DataDirectory`, `-Port` and
+`-HardwarePort` for `Start` and `Stop`. Explicit `-InitializeDatabase`
+initializes missing SQLite state. Start validates any existing database
+without applying migrations or creating an administrator. For Vite, pass
+`-DevPort` to `Start` to authorize only its exact `127.0.0.1` origin for
+HTTP mutations and WebSocket connections. The three ports must be distinct.
+
+For a read-only RPC readiness check, set `CIRNET_HARDWARE_GRPC_TARGET` to
+the selected loopback endpoint and invoke `cirnet-remote.exe --check-hardware`.
+It confirms an available virtual digital station without opening the database.
+
 ## Verify the installed bundle
 
 On a Windows development host, read the reviewed assembly receipt:

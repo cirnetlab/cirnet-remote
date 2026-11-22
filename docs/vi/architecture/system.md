@@ -2,7 +2,9 @@
 
 [English](../../en/architecture/system.md)
 
-[Kiến trúc Lab-First](lab-first-v3-1.md) chi phối quyền sở hữu hệ thống và an toàn trạm. Interface chỉnh sửa CircuitGraph logic và dùng API REST, WebSocket của Remote. Remote sở hữu xác thực, phân quyền, dự án, bài tập, lập lịch, lease bền vững và kho bản thu. Hardware sở hữu RPC loopback, vòng đời trạm và Stop an toàn. Worker Simulator native cách ly thực thi số và DC trong giới hạn. Contracts sở hữu schema chuẩn, dữ liệu thiết bị, mô tả RPC và NCAP. Embedded Hardware sở hữu RTL và nghiệm thu phía phần cứng.
+[Kiến trúc Ecosystem](../../cirnetlab-architecture-vi.md) xác định đích cấp tổ chức. [CIRNET Lab-First](../../cirnet-architecture-lab-first-vi.md) quy định thực thi Lab, quyền sở hữu và an toàn trạm. [Kiến trúc FPGA](../../cirnetlab-FPGA-architecture-vi.md) xác định đích FPGA và bo mạch trong phạm vi các quy tắc an toàn đó.
+
+Trong bản triển khai Next, Interface chỉnh sửa CircuitGraph logic và dùng API REST, WebSocket của Remote. Remote sở hữu xác thực, phân quyền, dự án, bài tập, lập lịch, lease bền vững, kho bản thu và lựa chọn bản phát hành hệ thống. Hardware sở hữu RPC loopback, vòng đời trạm và Stop an toàn. Worker Simulator native cách ly thực thi số và DC trong giới hạn. Contracts sở hữu schema chuẩn, dữ liệu thiết bị, mô tả RPC và NCAP. Embedded Hardware sở hữu RTL và nghiệm thu phía phần cứng.
 
 Remote phục vụ tài nguyên trình duyệt cùng origin với API trong ứng viên Windows. Hardware RPC 2.0 cục bộ vẫn tách riêng. Hardware xác minh SHA-256 của binary Simulator khi khởi động. Gói Windows chứa đủ tài nguyên native và Remote kiểm chứng lựa chọn ứng viên tại ranh giới artifact.
 

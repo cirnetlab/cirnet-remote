@@ -3,6 +3,8 @@
 [English](../en/index.md)
 
 - [Kiến trúc hệ thống](architecture/system.md)
+- [Đích Ecosystem](../cirnetlab-architecture-vi.md), [đích Lab-First](../cirnet-architecture-lab-first-vi.md) và [đích FPGA](../cirnetlab-FPGA-architecture-vi.md)
+- [Lab-First v3.1 lưu trữ](history/lab-first-v3-1.md)
 - [Bất biến Lab-First](architecture/context-invariants.md)
 - [Hợp đồng an toàn vật lý](architecture/physical-lab-safety-contract.md)
 - [API ứng dụng](api/application.md)

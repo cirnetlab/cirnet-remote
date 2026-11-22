@@ -3,7 +3,7 @@
 > **Document:** `cirnetlab-architecture-en.md` · **Language:** English  
 > **Scope:** Organization-wide target architecture for [`cirnetlab`](https://github.com/orgs/cirnetlab/repositories).  
 > **Architecture name:** **CIRNET — STEM & Engineering Learning Ecosystem**, without a version suffix.  
-> **Related documents:** [Lab-First Architecture](cirnet-architecture-lab-first-en.md) · [FPGA Architecture](../cirnetlab-FPGA-architecture-en.md) · [Tiếng Việt](cirnetlab-architecture-vi.md)  
+> **Related documents:** [Lab-First Architecture](cirnet-architecture-lab-first-en.md) · [FPGA Architecture](cirnetlab-FPGA-architecture-en.md) · [Tiếng Việt](cirnetlab-architecture-vi.md)<br>
 > **Evidence snapshot:** GitHub repository inventory and supplied architecture reviewed on **2026-11-15**.  
 > **Status:** **PROPOSED TARGET ARCHITECTURE**; not an implementation, performance, production, electrical-safety or semiconductor sign-off certificate.  
 > **Organization structure:** 33 existing repositories: 30 product/engineering/tool repositories, `cirnet-rules`, and two documentation/organization repositories. **No development phases are prescribed by this document.**
@@ -299,7 +299,7 @@ Compiling a project, flashing a target, running a physical experiment, starting 
 
 ## 8. CIRNET Lab-First — retained specialist architecture
 
-[Lab-First](cirnet-architecture-lab-first-en.md) governs electronics execution, endpoint binding and electrical safety. [FPGA Architecture](../cirnetlab-FPGA-architecture-en.md) specifies board and RTL behavior within those limits. This Ecosystem document governs how Lab integrates with the other domains.
+[Lab-First](cirnet-architecture-lab-first-en.md) governs electronics execution, endpoint binding and electrical safety. [FPGA Architecture](cirnetlab-FPGA-architecture-en.md) specifies board and RTL behavior within those limits. This Ecosystem document governs how Lab integrates with the other domains.
 
 ### 8.1 Required real Virtual Digital end-to-end chain
 
@@ -526,7 +526,7 @@ The GitHub organization maintains **independent repositories**. Local clones und
 
 ### 18.1 Architecture document ownership
 
-This EN/VI pair is the toolkit's [canonical Ecosystem reference](../../en/policies/architecture.md) for organization boundaries and integration. Approval and the long-term Organization publication location remain open (§21). Domain repositories link to this reference and the applicable Lab-First or FPGA architecture. Keep the paired editions aligned by meaning and retain historical revisions in Git.
+This EN/VI pair is the authoritative Ecosystem target reference for organization boundaries and integration in the Next repositories. Domain repositories link to this reference and the applicable Lab-First or FPGA architecture. Keep the paired editions aligned by meaning and retain historical revisions in Git.
 
 ---
 

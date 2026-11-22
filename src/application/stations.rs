@@ -11,8 +11,9 @@ use crate::{
     hardware::HardwareClient,
 };
 
+pub const VIRTUAL_STATION: &str = "virtual-station-01";
 const TARGETS: [(&str, &str); 2] = [
-    ("virtual-station-01", "simulation"),
+    (VIRTUAL_STATION, "simulation"),
     ("physical-station-01", "hardware"),
 ];
 const PUBLIC_SCHEMA: &str =

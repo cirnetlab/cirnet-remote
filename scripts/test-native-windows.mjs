@@ -39,6 +39,10 @@ const backup = join(session, 'backup')
 const restored = join(session, 'restored')
 const shell = join(process.env.SystemRoot, 'System32', 'WindowsPowerShell', 'v1.0', 'powershell.exe')
 const origin = 'http://127.0.0.1:14173'
+const hardwarePort = '15151'
+const hardwareTarget = '127.0.0.1:' + hardwarePort
+const devPort = '15173'
+const devOrigin = 'http://127.0.0.1:' + devPort
 const password = randomBytes(24).toString('base64url')
 const results = []
 const http = []
@@ -130,7 +134,7 @@ function command(root, action, state, extra = []) {
   return [
     '-NoLogo', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass',
     '-File', join(root, 'cirnet-native.ps1'), '-Action', action, '-DataDirectory', state,
-    '-Port', '14173', '-HardwarePort', '15151', ...extra,
+    '-Port', '14173', '-HardwarePort', hardwarePort, ...extra,
   ]
 }
 
@@ -170,9 +174,9 @@ async function ready(process, isReady) {
   throw new Error('Native supervisor readiness timeout')
 }
 
-async function withInstance(state, callback) {
+async function withInstance(state, callback, extra = []) {
   const log = createWriteStream(join(session, `supervisor-${results.length}.log`))
-  const child = spawn(shell, command(install, 'Start', state), {
+  const child = spawn(shell, command(install, 'Start', state, extra), {
     env: childEnv, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'],
   })
   const ended = new Promise((resolve, reject) => {
@@ -250,6 +254,14 @@ run(install, 'BootstrapAdmin', data, ['-Username', 'e2e_admin'], { CIRNET_BOOTST
 run(install, 'Doctor', data)
 let project, document, capture
 await withInstance(data, async supervisor => {
+  const hardware = spawnSync(join(install, 'bin/cirnet-remote.exe'), ['--check-hardware'], {
+    encoding: 'utf8', windowsHide: true, timeout: 8000,
+    env: { ...childEnv, CIRNET_HARDWARE_GRPC_TARGET: hardwareTarget },
+  })
+  assert.ifError(hardware.error)
+  assert.equal(hardware.status, 0, hardware.stderr)
+  assert.deepEqual(JSON.parse(hardware.stdout), { status: 'ok', station_id: 'virtual-station-01' })
+  results.push({ action: 'HardwareRpc', exit: hardware.status })
   run(install, 'Maintenance', data, ['-DryRun'], {}, 1)
   const home = await request('/', 200)
   assert.match(home.headers.get('content-type'), /text\/html/)
@@ -265,6 +277,10 @@ await withInstance(data, async supervisor => {
   await request('/api/projects', 401)
   const headers = await login()
   await request('/api/v2/circuits/validate', 422, {method: 'POST', headers, body: '{"schema_version":"1.0"}'})
+  const deniedDev = await request('/api/v2/circuits/validate', 403, {
+    method: 'POST', headers: { ...headers, Origin: devOrigin }, body: '{"schema_version":"1.0"}',
+  })
+  assert.equal((await deniedDev.json()).code, 'ORIGIN_REJECTED')
   await request('/api/assignments', 404, { headers })
   await request('/api/v2/assignments', 200, { headers })
   await request('/api/projects', 401, { headers: { Cookie: headers.Cookie.replace('cirnet_session=', 'netcircuit_session=') } })
@@ -306,11 +322,14 @@ if (capture) {
 }
 await withInstance(restored, async supervisor => {
   const headers = await login()
+  await request('/api/v2/circuits/validate', 422, {
+    method: 'POST', headers: { ...headers, Origin: devOrigin }, body: '{"schema_version":"1.0"}',
+  })
   const persisted = await (await request(`/api/projects/${project.project_id}`, 200, { headers })).json()
   assert.equal(persisted.name, project.name)
   assert.deepEqual(await (await request(`/api/v2/circuits/${document.document_id}`, 200, { headers })).json(), document)
   observeProcesses(supervisor, false)
-})
+}, ['-DevPort', devPort])
 writeFileSync(join(session, 'result.json'), JSON.stringify({
   scope: 'Windows development host', browserVerified: Boolean(browserRoot), manifestSha256: hash, results, processSnapshots, http,
   savedDocument: { projectId: project.project_id, documentId: document.document_id,

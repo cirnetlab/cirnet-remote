@@ -2,7 +2,7 @@
 
 [English](../../en/architecture/context-invariants.md) · [Bối cảnh làm việc](context.md)
 
-[Đặc tả Lab-First v3.1](lab-first-v3-1.md) quy định các yêu cầu hệ thống.
+[CIRNET Lab-First](../../cirnet-architecture-lab-first-vi.md) quy định thực thi Lab và an toàn.
 
 - Duy trì một không gian làm việc ưu tiên Web và có bước kiểm tra an toàn.
   Bản đang chọn nhắm đến Mini PC chạy Linux với PostgreSQL.

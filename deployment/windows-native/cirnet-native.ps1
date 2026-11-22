@@ -10,6 +10,7 @@ param(
     [string] $DataDirectory = (Join-Path ([Environment]::GetFolderPath('LocalApplicationData')) 'CIRNET\Native'),
     [ValidateRange(1024,65535)][int] $Port = 8000,
     [ValidateRange(1024,65535)][int] $HardwarePort = 50051,
+    [ValidateRange(1024,65535)][uint16] $DevPort,
     [string] $Username,
     [ValidateRange(1,1000)][int] $Limit = 100,
     [switch] $DryRun,
@@ -138,6 +139,7 @@ if ($Action -eq 'Install') {
     return
 }
 if ($Port -eq $HardwarePort) { throw 'HTTP and Hardware ports must differ.' }
+if ($DevPort -in @($Port, $HardwarePort)) { throw 'Vite must use a different port from HTTP and Hardware.' }
 $data = [IO.Path]::GetFullPath($DataDirectory)
 Assert-Disjoint $root $data
 if ($Action -ne 'Restore') {
@@ -152,6 +154,8 @@ $worker = Join-InventoryPath $root 'bin/cirnet-simulator-worker.exe'
 $workerRecord = @($manifest.files | Where-Object { $_.path -ceq 'bin/cirnet-simulator-worker.exe' })
 if ($workerRecord.Count -ne 1) { throw 'Worker artifact identity is missing.' }
 $origin = "http://127.0.0.1:$Port"
+$trustedOrigins = @($origin)
+if ($DevPort) { $trustedOrigins += "http://127.0.0.1:$DevPort" }
 $contracts = Join-InventoryPath $root 'bin/cirnet-contracts.exe'
 $remote = Join-InventoryPath $root 'bin/cirnet-remote.exe'
 $hardware = Join-InventoryPath $root 'bin/cirnet-hardware.exe'
@@ -159,7 +163,7 @@ $settings = @{
     CIRNET_ENV = 'development'
     CIRNET_REMOTE_READ_ONLY = 'false'
     CIRNET_HARDWARE_MODE = 'simulation'
-    CIRNET_TRUSTED_ORIGINS = $origin
+    CIRNET_TRUSTED_ORIGINS = ($trustedOrigins -join ',')
     CIRNET_ALLOW_GUEST = 'true'
     CIRNET_DATABASE_URL = 'sqlite:///' + $database.Replace('\','/')
     CIRNET_CAPTURE_DIR = $captures
