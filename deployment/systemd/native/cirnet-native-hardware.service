@@ -1,0 +1,23 @@
+[Unit]
+Description=CIRNET native candidate Hardware
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=exec
+User=cirnet-native
+Group=cirnet-native
+RuntimeDirectory=cirnet-native-hardware
+RuntimeDirectoryMode=0700
+EnvironmentFile=/etc/cirnet/native-hardware.env
+ExecStart=/opt/cirnet/native/bin/cirnet-hardware --listen unix:/run/cirnet-native-hardware/rpc.sock
+ExecStartPost=/bin/sh -c 'until test -S /run/cirnet-native-hardware/rpc.sock; do sleep 1; done'
+TimeoutStartSec=30s
+TimeoutStopSec=120s
+KillMode=mixed
+KillSignal=SIGTERM
+SendSIGKILL=no
+Restart=no
+NoNewPrivileges=yes
+PrivateTmp=yes
+UMask=0077

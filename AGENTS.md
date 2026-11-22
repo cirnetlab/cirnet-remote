@@ -1,0 +1,8 @@
+# Repository work
+
+- Read the [English](docs/en/index.md) and [Vietnamese](docs/vi/index.md) documentation indexes. Search before creating a document, update the authoritative page, consolidate overlapping material and verify references. Keep both languages and the [changelog](docs/changelogs/README.md) synchronized.
+- Keep task plans only in .superpowers/plans/ and task specifications, acceptance criteria and progress checklists only in .superpowers/specs/. Use unchecked boxes until an item is verified.
+- Preserve Lab-First ownership and the [physical safety contract](docs/en/architecture/physical-lab-safety-contract.md). Remote owns authentication, authorization, orchestration, durable leases, quarantine, captures and release selection. Keep canonical schemas in Contracts and station control inside Hardware.
+- Use exact Next source snapshots and artifact digests for candidates. Keep candidate and published identities distinct. Maintain locked dependencies and existing REST, WebSocket, Hardware RPC and NCAP compatibility.
+- Follow the [verification guide](docs/en/contributing/verification.md). Use the shared Contracts Next allocator with an owner and all participating roots. Keep raw outputs outside repositories, worktrees and Git directories. Retain only approved summaries and evidence references. Clean only owned outputs.
+- Distinguish TARGET, IMPLEMENTED, TESTED, VERIFIED, RELEASED, UNAVAILABLE and BLOCKED. Verify claims against source, contracts and tests. Inspect Git diff, status and ignored outputs. Stage, commit, merge, push, tag and publish only on request.

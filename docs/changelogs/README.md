@@ -1,1 +1,15 @@
-# CIRNET Remote release changelogs
+# Remote changelog
+
+## 0.3.0-dev.1
+
+- Migrate the Rust REST and WebSocket service into API, domain, application and infrastructure directories.
+- Build against Contracts Next and keep the existing RPC and data compatibility.
+- Preserve native deployment, migrations, capture persistence and scheduler safety regression tests.
+- Establish Remote Next ownership of the Windows native candidate.
+
+## Tiếng Việt
+
+- Chuyển dịch vụ REST và WebSocket Rust vào các thư mục API, domain, application và infrastructure.
+- Dựng cùng Contracts Next và giữ tương thích RPC cùng dữ liệu hiện có.
+- Giữ triển khai native, chuyển đổi dữ liệu, lưu bản thu và bộ hồi quy an toàn bộ lập lịch.
+- Xác lập quyền sở hữu ứng viên native Windows tại Remote Next.
