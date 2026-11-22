@@ -7,6 +7,7 @@
 - Preserve native deployment, migrations, capture persistence and scheduler safety regression tests.
 - Establish Remote Next ownership of the Windows native candidate.
 - Adopt the Ecosystem, CIRNET Lab-First and FPGA target references and archive Lab-First v3.1.
+- Run Windows component CI on master pushes with pinned private dependencies.
 
 ## Tiếng Việt
 
@@ -15,3 +16,4 @@
 - Giữ triển khai native, chuyển đổi dữ liệu, lưu bản thu và bộ hồi quy an toàn bộ lập lịch.
 - Xác lập quyền sở hữu ứng viên native Windows tại Remote Next.
 - Áp dụng các tham chiếu kiến trúc đích Ecosystem, CIRNET Lab-First và FPGA, đồng thời lưu trữ Lab-First v3.1.
+- Chạy CI thành phần Windows khi push lên master với phụ thuộc riêng tư đã ghim.
