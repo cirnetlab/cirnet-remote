@@ -8,6 +8,7 @@
 - Establish Remote Next ownership of the Windows native candidate.
 - Adopt the Ecosystem, CIRNET Lab-First and FPGA target references and archive Lab-First v3.1.
 - Run Windows component CI on master pushes with pinned private dependencies.
+- Document the Actions secret permissions for component CI and manual candidates.
 
 ## Tiếng Việt
 
@@ -17,3 +18,4 @@
 - Xác lập quyền sở hữu ứng viên native Windows tại Remote Next.
 - Áp dụng các tham chiếu kiến trúc đích Ecosystem, CIRNET Lab-First và FPGA, đồng thời lưu trữ Lab-First v3.1.
 - Chạy CI thành phần Windows khi push lên master với phụ thuộc riêng tư đã ghim.
+- Ghi rõ quyền của Actions secret cho CI thành phần và ứng viên chạy thủ công.
