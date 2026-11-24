@@ -1,0 +1,15 @@
+{
+  "sha256": {
+    "compiler.json": "16145f998f768517788771f3e5ca9f446f7d6ab8c86e144fb76856319ab6cd3c",
+    "compiler_numeric_fixture.json": "d029a2680fb2d8ef6e2dac020411458dbaae9b56cb7bb359cb2e4b8efa40decf",
+    "topology_fixture.json": "ba77ba3e55f73686dfeee81df92c0db3a267a0b1f24c948c091a599edcae55a1",
+    "http_body_fixture.json": "4d3cfb29710a108b59770b716bf9f00a20b97bca0284c263aa6d5811ca7e2802",
+    "stations.json": "c1802152a1e4cfa080d351998efdd2c6583a40cc6a2b751c2619f3bb9201dc54"
+  },
+  "source_revisions": {
+    "cirnet-remote": "d0a28e8ba3ec9c6b93f70932c45843d35f75a499",
+    "cirnet-contracts": "c913108a78db5e51c6ea1fb2e30a9cb4c6e199a4",
+    "cirnet-simulator": "7cdee6420a204f9b0cd2120ff9e65ee5ffd52b1c",
+    "cirnet-remote-db": "3e75787f3143f7c9e913d93d3dc95e7359687aec"
+  }
+}

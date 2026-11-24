@@ -1,0 +1,89 @@
+name: Remote Windows x64 component
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      contracts_revision:
+        description: Exact Contracts Next commit
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  native:
+    runs-on: windows-2022
+    timeout-minutes: 35
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: cirnet-remote-next
+    env:
+      CONTRACTS_REVISION: ${{ inputs.contracts_revision || 'b151f9f16b4d8998ca7142d208c86e7a03268694' }}
+    steps:
+      - name: Validate dependency revisions and access
+        working-directory: .
+        env:
+          DEPENDENCIES_TOKEN: ${{ secrets.CIRNET_DEPENDENCIES_READ_TOKEN || secrets.CIRNET_READ_TOKEN }}
+        run: |
+          if (!$env:DEPENDENCIES_TOKEN) { throw 'Set the CIRNET_DEPENDENCIES_READ_TOKEN Actions secret for cirnet-remote-next. Grant Contents read access to cirnet-contracts-next.' }
+          if ($env:CONTRACTS_REVISION -cnotmatch '^[0-9a-f]{40}$') { throw 'Expected an exact Contracts Next commit.' }
+      - uses: actions/checkout@v5
+        with:
+          path: cirnet-remote-next
+          persist-credentials: false
+      - uses: actions/checkout@v5
+        with:
+          repository: cirnetlab/cirnet-contracts-next
+          ref: ${{ inputs.contracts_revision || 'b151f9f16b4d8998ca7142d208c86e7a03268694' }}
+          path: cirnet-contracts-next
+          token: ${{ secrets.CIRNET_DEPENDENCIES_READ_TOKEN || secrets.CIRNET_READ_TOKEN }}
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 26.12.1
+          package-manager-cache: false
+      - name: Allocate an external verification session
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $true
+          $workspace = $env:GITHUB_WORKSPACE
+          $contracts = Join-Path $workspace 'cirnet-contracts-next'
+          $revision = git -C $contracts rev-parse HEAD
+          if ($LASTEXITCODE -or $revision -cne $env:CONTRACTS_REVISION) { throw 'Contracts checkout differs from its pin.' }
+          $env:CIRNET_ARTIFACTS_CONTEXT = @{
+            owner = 'cirnet-remote-next-ci'
+            roots = @((Get-Location).Path, $contracts)
+          } | ConvertTo-Json -Compress
+          $allocator = Join-Path $contracts 'tools/artifact-paths/cirnet_artifact_paths/artifact-paths.mjs'
+          $session = node $allocator --directory (Join-Path $env:RUNNER_TEMP 'cirnet-native')
+          if ($LASTEXITCODE -or !$session) { throw 'Artifact session allocation failed.' }
+          "CIRNET_ARTIFACTS_SESSION=$session" >> $env:GITHUB_ENV
+          "CIRNET_CONTRACTS_ROOT=$contracts" >> $env:GITHUB_ENV
+          "CARGO_TARGET_DIR=$(Join-Path $session 'target')" >> $env:GITHUB_ENV
+      - name: Verify and build the Windows x64 component
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          $target = 'x86_64-pc-windows-msvc'
+          $ErrorActionPreference = 'Stop'
+          $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
+          $vs = & $vswhere -latest -products '*' -version '[17.0,18.0)' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+          if (!$vs) { throw 'Visual Studio 2022 x64 build tools are required.' }
+          & (Join-Path $vs 'Common7/Tools/Launch-VsDevShell.ps1') -Arch amd64 -HostArch amd64 -SkipAutomaticLocation
+          cargo fmt --all --check
+          $env:CARGO_ENCODED_RUSTFLAGS = "-C$([char]31)target-feature=+crt-static"
+          cargo test --locked --release --target $target
+          cargo build --locked --release --target $target --bin cirnet-remote
+          $binary = Join-Path $env:CARGO_TARGET_DIR "$target/release/cirnet-remote.exe"
+          & $binary --version
+          "$((Get-FileHash -LiteralPath $binary -Algorithm SHA256).Hash.ToLowerInvariant())  cirnet-remote.exe" >> $env:GITHUB_STEP_SUMMARY
+      - name: Verify native routes and migrations
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          $env:CIRNET_REMOTE_CLI_DIR = Join-Path $env:CIRNET_ARTIFACTS_SESSION 'cli'
+          New-Item -ItemType Directory -Path $env:CIRNET_REMOTE_CLI_DIR | Out-Null
+          $env:CARGO_ENCODED_RUSTFLAGS = "-C$([char]31)target-feature=+crt-static"
+          cargo test --locked --release --target x86_64-pc-windows-msvc --test cli -- --ignored

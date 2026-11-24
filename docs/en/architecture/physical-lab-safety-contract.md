@@ -1,0 +1,28 @@
+# Physical Lab Safety Contract
+
+[Tiếng Việt](../../vi/architecture/physical-lab-safety-contract.md) · [CIRNET Lab-First](../../cirnet-architecture-lab-first-en.md) · [Safety overview](physical-lab-safety.md)
+
+Safety and correctness are independent. Evaluate an unknown component using
+the observed evidence and the station's protection capabilities.
+
+| Boundary | Required behavior | Electrical parameters |
+|---|---|---|
+| Supply | current limiting, current sensing, fast cutoff, staged energization | TBD_BY_HARDWARE_DESIGN |
+| Drive | tri-state default, protected digital drive, contention protection | TBD_BY_HARDWARE_DESIGN |
+| Switching | routing default-open, safe switching, preserve student wiring | TBD_BY_HARDWARE_DESIGN |
+| Startup | guarded power-up after fresh scan/safety/applied executable plan | TBD_BY_HARDWARE_DESIGN |
+| Runtime | watchdog, heartbeat, fault interlock, runtime protection | TBD_BY_HARDWARE_DESIGN |
+| Cleanup | safe-state timeout, disabled sources/clock/generator, release or quarantine | TBD_BY_HARDWARE_DESIGN |
+
+Faults: VCC/GND short, hazardous contention, polarity/voltage/current risk, failed protection, stale scan/plan, driver disconnect/error, timeout/protocol mismatch. UNSAFE/INDETERMINATE prevents power-up/start. Missing driver cannot acknowledge electrical safety: hardware_applied=false, unavailable. Failed safe cleanup quarantines rather than releasing electrical resources.
+
+Safe opaque/wrong components can run guarded only when protection/endpoint executability are demonstrated; observed behavior determines PASS/FAIL/PARTIAL/NO_RESPONSE. Require schematic, selected part datasheets/pin mapping and measurements before electrical safety claims. State-machine/RTL tests establish control invariants only.
+
+Observations require valid detected node, connection and pin references,
+unique pin IDs and `UNKNOWN` for opaque identity. Malformed driver evidence
+yields `DRIVER_ERROR` and safe fallback before routing or power-up.
+`TopologyResolver` maps reference endpoints to actual observed student
+nodes. Unresolved required endpoints block executability. Topology mismatch,
+ambiguity and assessment remain separate from electrical safety.
+
+Generator baseline settings are checked in the execution plan before guarded power-up. Live updates require declared runtime support, RUNNING, owner/active lease, fresh driver safety and specified profile limits. No ADC/DAC/AFE design means zero Scope/Generator channels and no live Apply. Capability slots=2 is admission-test evidence only, never proof of safe electrical parallelism; actual profiles require independent protected partitions. All missing electrical limits remain TBD_BY_HARDWARE_DESIGN.

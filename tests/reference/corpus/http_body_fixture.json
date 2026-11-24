@@ -1,0 +1,920 @@
+{
+  "fastapi": "0.143.0",
+  "cases": [
+    {
+      "kind": "syntax",
+      "name": "missing-value-eof",
+      "input": "{\"name\":",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/8",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 8
+    },
+    {
+      "kind": "syntax",
+      "name": "invalid-value-token",
+      "input": "{\"name\":oops}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/8",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 8
+    },
+    {
+      "kind": "syntax",
+      "name": "trailing-data",
+      "input": "{\"name\":\"ok\"}oops",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/13",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 13
+    },
+    {
+      "kind": "syntax",
+      "name": "multiline",
+      "input": "{\n\"name\": @}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/10",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 10
+    },
+    {
+      "kind": "syntax",
+      "name": "unicode-codepoint-offset",
+      "input": "{\"name\":\"\u0111i\u1ec7n\ud83d\ude00\", \"other\": }",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/26",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 26
+    },
+    {
+      "kind": "syntax",
+      "name": "unterminated-string",
+      "input": "{\"name\":\"abc",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/8",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 8
+    },
+    {
+      "kind": "syntax",
+      "name": "unterminated-string-escape",
+      "input": "{\"name\":\"abc\\",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/8",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 8
+    },
+    {
+      "kind": "syntax",
+      "name": "invalid-escape",
+      "input": "{\"name\":\"x\\q\"}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/10",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 10
+    },
+    {
+      "kind": "syntax",
+      "name": "invalid-hex-escape",
+      "input": "{\"name\":\"x\\u123z\"}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/11",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 11
+    },
+    {
+      "kind": "syntax",
+      "name": "short-hex-escape",
+      "input": "{\"name\":\"x\\u12",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/11",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 11
+    },
+    {
+      "kind": "syntax",
+      "name": "bare-control-in-string",
+      "input": "{\"name\":\"x\tz\"}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/10",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 10
+    },
+    {
+      "kind": "syntax",
+      "name": "trailing-object-comma",
+      "input": "{\"name\":\"ok\", \r\n }",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/12",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 12
+    },
+    {
+      "kind": "syntax",
+      "name": "trailing-array-comma",
+      "input": "{\"name\":[1, \n ]}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/10",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 10
+    },
+    {
+      "kind": "syntax",
+      "name": "array-missing-comma",
+      "input": "{\"name\":[1 \n2]}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/12",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 12
+    },
+    {
+      "kind": "syntax",
+      "name": "missing-colon",
+      "input": "{\"name\" \"ok\"}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/8",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 8
+    },
+    {
+      "kind": "syntax",
+      "name": "unterminated-array",
+      "input": "{\"name\":[1,",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/11",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 11
+    },
+    {
+      "kind": "syntax",
+      "name": "literal-prefix",
+      "input": "{\"name\":fal}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/8",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 8
+    },
+    {
+      "kind": "syntax",
+      "name": "leading-zero",
+      "input": "{\"name\":012}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/9",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 9
+    },
+    {
+      "kind": "syntax",
+      "name": "decimal-no-digits",
+      "input": "{\"name\":1.}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/9",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 9
+    },
+    {
+      "kind": "syntax",
+      "name": "exponent-no-digits",
+      "input": "{\"name\":1e+}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/9",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 9
+    },
+    {
+      "kind": "syntax",
+      "name": "negative-no-digits",
+      "input": "{\"name\":-}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/8",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 8
+    },
+    {
+      "kind": "syntax",
+      "name": "nonfinite-trailing-invalid",
+      "input": "{\"name\":Infinityx}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/16",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 16
+    },
+    {
+      "kind": "syntax",
+      "name": "nonfinite-and-later-syntax",
+      "input": "{\"name\":[NaN, ]}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/12",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 12
+    },
+    {
+      "kind": "syntax",
+      "name": "escaped-key-then-syntax",
+      "input": "{\"\\u006eame\":\"ok\",\"x\":}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/22",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 22
+    },
+    {
+      "kind": "syntax",
+      "name": "escaped-surrogate-pair-then-syntax",
+      "input": "{\"name\":\"\\uD83D\\uDE00\",\"other\":}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/31",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 31
+    },
+    {
+      "kind": "syntax",
+      "name": "bom-with-invalid-utf8-position",
+      "input": "\ufeff{\"name\":\"\u00e9\",}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/11",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 11
+    },
+    {
+      "kind": "syntax",
+      "name": "whitespace-only",
+      "input": " \r\n\t ",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "json_invalid",
+          "path": "/body/5",
+          "severity": "error",
+          "profile": "http-request",
+          "message": "The request field does not match its declared contract."
+        }
+      ],
+      "offset": 5
+    },
+    {
+      "kind": "nonfinite",
+      "name": "nan",
+      "input": "{\"name\":NaN}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "NONFINITE_NUMBER",
+          "path": "/body/name",
+          "severity": "error",
+          "profile": "structural",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "nonfinite",
+      "name": "positive-infinity",
+      "input": "{\"name\":Infinity}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "NONFINITE_NUMBER",
+          "path": "/body/name",
+          "severity": "error",
+          "profile": "structural",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "nonfinite",
+      "name": "negative-infinity",
+      "input": "{\"name\":-Infinity}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "NONFINITE_NUMBER",
+          "path": "/body/name",
+          "severity": "error",
+          "profile": "structural",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "nonfinite",
+      "name": "exponent-overflow",
+      "input": "{\"name\":1e400}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "NONFINITE_NUMBER",
+          "path": "/body/name",
+          "severity": "error",
+          "profile": "structural",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "nonfinite",
+      "name": "nested-json-pointer",
+      "input": "{\"name\":{\"a/b~\":[0,NaN]}}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "SCHEMA_TYPE",
+          "path": "/body/name",
+          "severity": "error",
+          "profile": "structural",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "nonfinite",
+      "name": "top-level-nan",
+      "input": "NaN",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "NONFINITE_NUMBER",
+          "path": "/body",
+          "severity": "error",
+          "profile": "structural",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "nonfinite",
+      "name": "duplicate-final-invalid",
+      "input": "{\"name\":\"first\",\"name\":NaN}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "NONFINITE_NUMBER",
+          "path": "/body/name",
+          "severity": "error",
+          "profile": "structural",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "nonfinite",
+      "name": "first-nonfinite-order",
+      "input": "{\"description\":Infinity,\"name\":NaN}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "NONFINITE_NUMBER",
+          "path": "/body/name",
+          "severity": "error",
+          "profile": "structural",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "nonfinite",
+      "name": "auth-transport-profile",
+      "input": "{\"username\":NaN,\"password\":\"aaaaaaaaaaaa\"}",
+      "content_type": "application/json",
+      "profile": "transport",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "NONFINITE_NUMBER",
+          "path": "/body/username",
+          "severity": "error",
+          "profile": "transport",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "valid",
+      "name": "quoted-nonfinite",
+      "input": "{\"name\":\"Infinity and NaN and -Infinity\"}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 201,
+      "value": "Infinity and NaN and -Infinity"
+    },
+    {
+      "kind": "valid",
+      "name": "duplicate-final-valid",
+      "input": "{\"name\":NaN,\"name\":\"final\"}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 201,
+      "value": "final"
+    },
+    {
+      "kind": "valid",
+      "name": "utf8-bom-valid",
+      "input": "\ufeff{\"name\":\"BOM\"}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 201,
+      "value": "BOM"
+    },
+    {
+      "kind": "valid",
+      "name": "valid-surrogate-pair",
+      "input": "{\"name\":\"\\uD83D\\uDE00\"}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 201,
+      "value": "\ud83d\ude00"
+    },
+    {
+      "kind": "media",
+      "name": "missing-content-type",
+      "input": "{\"name\":\"media\"}",
+      "content_type": null,
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "SCHEMA_TYPE",
+          "path": "/body",
+          "severity": "error",
+          "profile": "structural",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "media",
+      "name": "empty-content-type",
+      "input": "{\"name\":\"media\"}",
+      "content_type": "",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "SCHEMA_TYPE",
+          "path": "/body",
+          "severity": "error",
+          "profile": "structural",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "media",
+      "name": "plain-text",
+      "input": "{\"name\":\"media\"}",
+      "content_type": "text/plain",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "SCHEMA_TYPE",
+          "path": "/body",
+          "severity": "error",
+          "profile": "structural",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "media",
+      "name": "text-json",
+      "input": "{\"name\":\"media\"}",
+      "content_type": "text/json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "SCHEMA_TYPE",
+          "path": "/body",
+          "severity": "error",
+          "profile": "structural",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "media",
+      "name": "xml",
+      "input": "{\"name\":\"media\"}",
+      "content_type": "application/xml",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "SCHEMA_TYPE",
+          "path": "/body",
+          "severity": "error",
+          "profile": "structural",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "media",
+      "name": "invalid-mime",
+      "input": "{\"name\":\"media\"}",
+      "content_type": "application//json",
+      "profile": "structural",
+      "status": 422,
+      "error": "REQUEST_VALIDATION_ERROR",
+      "issues": [
+        {
+          "code": "SCHEMA_TYPE",
+          "path": "/body",
+          "severity": "error",
+          "profile": "structural",
+          "message": "The request field does not match its declared contract."
+        }
+      ]
+    },
+    {
+      "kind": "media",
+      "name": "json",
+      "input": "{\"name\":\"media\"}",
+      "content_type": "application/json",
+      "profile": "structural",
+      "status": 201,
+      "value": "media"
+    },
+    {
+      "kind": "media",
+      "name": "mixed-case",
+      "input": "{\"name\":\"media\"}",
+      "content_type": "Application/JSON; charset=utf-8",
+      "profile": "structural",
+      "status": 201,
+      "value": "media"
+    },
+    {
+      "kind": "media",
+      "name": "plus-json",
+      "input": "{\"name\":\"media\"}",
+      "content_type": "application/vnd.cirnet+json",
+      "profile": "structural",
+      "status": 201,
+      "value": "media"
+    },
+    {
+      "kind": "media",
+      "name": "spaces",
+      "input": "{\"name\":\"media\"}",
+      "content_type": " application/json ; charset=utf-8 ",
+      "profile": "structural",
+      "status": 201,
+      "value": "media"
+    },
+    {
+      "kind": "any",
+      "name": "/api/circuits/validate",
+      "input": "{broken",
+      "content_type": "text/plain",
+      "profile": "structural",
+      "status": 422,
+      "error": "SCHEMA_VALIDATION_ERROR",
+      "issues": [],
+      "value": {
+        "valid": false,
+        "code": "SCHEMA_VALIDATION_ERROR",
+        "message": ": The value does not match its canonical contract."
+      }
+    },
+    {
+      "kind": "any",
+      "name": "/api/v2/circuits/validate",
+      "input": "{broken",
+      "content_type": "text/plain",
+      "profile": "structural",
+      "status": 422,
+      "error": "SCHEMA_VALIDATION_ERROR",
+      "issues": [],
+      "value": {
+        "valid": false,
+        "code": "SCHEMA_VALIDATION_ERROR",
+        "message": "b'{broken' is not valid under any of the given schemas\n\nFailed validating 'oneOf' in schema:\n    {'oneOf': [{'$ref': 'https://cirnet.local/contracts/circuit/1.x/circuit.schema.json'},\n               {'$ref': 'https://cirnet.local/contracts/circuit/1.2/schema.json'}]}\n\nOn instance:\n    b'{broken'"
+      }
+    },
+    {
+      "kind": "any",
+      "name": "/api/circuits/physical-preview",
+      "input": "{broken",
+      "content_type": "text/plain",
+      "profile": "structural",
+      "status": 422,
+      "error": "SCHEMA_VALIDATION_ERROR",
+      "issues": [],
+      "value": {
+        "valid": false,
+        "code": "SCHEMA_VALIDATION_ERROR",
+        "message": ": The value does not match its canonical contract."
+      }
+    },
+    {
+      "kind": "any",
+      "name": "/api/v2/circuits/physical-preview",
+      "input": "{broken",
+      "content_type": "text/plain",
+      "profile": "structural",
+      "status": 422,
+      "error": "SCHEMA_VALIDATION_ERROR",
+      "issues": [],
+      "value": {
+        "valid": false,
+        "code": "SCHEMA_VALIDATION_ERROR",
+        "message": "b'{broken' is not valid under any of the given schemas\n\nFailed validating 'oneOf' in schema:\n    {'oneOf': [{'$ref': 'https://cirnet.local/contracts/circuit/1.x/circuit.schema.json'},\n               {'$ref': 'https://cirnet.local/contracts/circuit/1.2/schema.json'}]}\n\nOn instance:\n    b'{broken'"
+      }
+    }
+  ]
+}

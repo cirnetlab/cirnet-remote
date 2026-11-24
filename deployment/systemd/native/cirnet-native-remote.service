@@ -1,0 +1,25 @@
+[Unit]
+Description=CIRNET native candidate Remote
+After=network-online.target cirnet-native-hardware.service
+Wants=network-online.target
+BindsTo=cirnet-native-hardware.service
+
+[Service]
+Type=exec
+User=cirnet-native
+Group=cirnet-native
+StateDirectory=cirnet-native
+StateDirectoryMode=0700
+WorkingDirectory=/var/lib/cirnet-native
+EnvironmentFile=/etc/cirnet/native-remote.env
+ExecStartPre=/opt/cirnet/native/bin/cirnet-remote --check
+ExecStart=/opt/cirnet/native/bin/cirnet-remote --listen 127.0.0.1:8000 --web-root /opt/cirnet/native/web
+TimeoutStartSec=60s
+TimeoutStopSec=120s
+KillMode=mixed
+KillSignal=SIGTERM
+SendSIGKILL=no
+Restart=no
+NoNewPrivileges=yes
+PrivateTmp=yes
+UMask=0077

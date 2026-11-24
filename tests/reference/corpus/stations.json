@@ -1,0 +1,918 @@
+[
+  {
+    "scenario": "ready",
+    "database": "ready.sqlite",
+    "queue": [
+      "foreign_first",
+      "own_second",
+      "foreign_third",
+      "own_fourth"
+    ],
+    "cases": [
+      {
+        "path": "/api/stations",
+        "owner": 0,
+        "status": 200,
+        "body": [
+          {
+            "station_id": "virtual-station-01",
+            "mode": "simulation",
+            "state": "ready",
+            "capabilities": {
+              "schema_version": "1.0",
+              "station_id": "virtual-station-01",
+              "mode": "simulation",
+              "available": true,
+              "virtual_digital": true,
+              "virtual_analog": false,
+              "physical_digital": false,
+              "physical_analog_routing": false,
+              "physical_execution_slots": 0,
+              "topology_scan_supported": false,
+              "safety_gate_supported": false,
+              "guarded_run_supported": false,
+              "component_resolution_modes": [],
+              "breadboards": [],
+              "hardware_rpc_version": "2.0",
+              "fpga_protocol_version": "fixture-fpga",
+              "firmware_version": "fixture-firmware",
+              "hardware_profile_version": "fixture-profile",
+              "instrument_capabilities": {
+                "logic_analyzer": {
+                  "channels": 4,
+                  "runtime_reconfiguration_supported": false
+                },
+                "oscilloscope": {
+                  "channels": 0,
+                  "runtime_reconfiguration_supported": false
+                },
+                "generator": {
+                  "channels": 0,
+                  "runtime_reconfiguration_supported": false
+                }
+              }
+            }
+          },
+          {
+            "station_id": "physical-station-01",
+            "mode": "hardware",
+            "state": "ready",
+            "capabilities": {
+              "schema_version": "1.0",
+              "station_id": "physical-station-01",
+              "mode": "hardware",
+              "available": true,
+              "virtual_digital": false,
+              "virtual_analog": false,
+              "physical_digital": true,
+              "physical_analog_routing": true,
+              "physical_execution_slots": 1,
+              "topology_scan_supported": true,
+              "safety_gate_supported": true,
+              "guarded_run_supported": true,
+              "component_resolution_modes": [
+                "HYBRID"
+              ],
+              "breadboards": [
+                {
+                  "id": "board1",
+                  "model": "board-fixture"
+                }
+              ],
+              "hardware_rpc_version": "2.0",
+              "fpga_protocol_version": "fixture-fpga",
+              "firmware_version": "fixture-firmware",
+              "hardware_profile_version": "fixture-profile",
+              "instrument_capabilities": {
+                "logic_analyzer": {
+                  "channels": 4,
+                  "runtime_reconfiguration_supported": false
+                },
+                "oscilloscope": {
+                  "channels": 1,
+                  "runtime_reconfiguration_supported": false
+                },
+                "generator": {
+                  "channels": 1,
+                  "runtime_reconfiguration_supported": true,
+                  "status": "READY",
+                  "supported_waveforms": [
+                    "SINE"
+                  ],
+                  "offset_min_v": -1.0
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "path": "/api/stations/virtual-station-01/capabilities",
+        "owner": 0,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "virtual-station-01",
+          "mode": "simulation",
+          "available": true,
+          "virtual_digital": true,
+          "virtual_analog": false,
+          "physical_digital": false,
+          "physical_analog_routing": false,
+          "physical_execution_slots": 0,
+          "topology_scan_supported": false,
+          "safety_gate_supported": false,
+          "guarded_run_supported": false,
+          "component_resolution_modes": [],
+          "breadboards": [],
+          "hardware_rpc_version": "2.0",
+          "fpga_protocol_version": "fixture-fpga",
+          "firmware_version": "fixture-firmware",
+          "hardware_profile_version": "fixture-profile",
+          "instrument_capabilities": {
+            "logic_analyzer": {
+              "channels": 4,
+              "runtime_reconfiguration_supported": false
+            },
+            "oscilloscope": {
+              "channels": 0,
+              "runtime_reconfiguration_supported": false
+            },
+            "generator": {
+              "channels": 0,
+              "runtime_reconfiguration_supported": false
+            }
+          }
+        }
+      },
+      {
+        "path": "/api/stations/physical-station-01/capabilities",
+        "owner": 0,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "physical-station-01",
+          "mode": "hardware",
+          "available": true,
+          "virtual_digital": false,
+          "virtual_analog": false,
+          "physical_digital": true,
+          "physical_analog_routing": true,
+          "physical_execution_slots": 1,
+          "topology_scan_supported": true,
+          "safety_gate_supported": true,
+          "guarded_run_supported": true,
+          "component_resolution_modes": [
+            "HYBRID"
+          ],
+          "breadboards": [
+            {
+              "id": "board1",
+              "model": "board-fixture"
+            }
+          ],
+          "hardware_rpc_version": "2.0",
+          "fpga_protocol_version": "fixture-fpga",
+          "firmware_version": "fixture-firmware",
+          "hardware_profile_version": "fixture-profile",
+          "instrument_capabilities": {
+            "logic_analyzer": {
+              "channels": 4,
+              "runtime_reconfiguration_supported": false
+            },
+            "oscilloscope": {
+              "channels": 1,
+              "runtime_reconfiguration_supported": false
+            },
+            "generator": {
+              "channels": 1,
+              "runtime_reconfiguration_supported": true,
+              "status": "READY",
+              "supported_waveforms": [
+                "SINE"
+              ],
+              "offset_min_v": -1.0
+            }
+          }
+        }
+      },
+      {
+        "path": "/api/stations/never-declared/capabilities",
+        "owner": 0,
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "The requested resource was not found.",
+          "request_id": "station-oracle"
+        }
+      },
+      {
+        "path": "/api/stations/never-declared/queue",
+        "owner": 0,
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "The requested resource was not found.",
+          "request_id": "station-oracle"
+        }
+      },
+      {
+        "path": "/api/stations/virtual-station-01/queue",
+        "owner": 0,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "virtual-station-01",
+          "queued_count": 4,
+          "busy": false,
+          "own_positions": [
+            {
+              "experiment_id": "own_second",
+              "position": 2
+            },
+            {
+              "experiment_id": "own_fourth",
+              "position": 4
+            }
+          ]
+        }
+      },
+      {
+        "path": "/api/stations/virtual-station-01/queue",
+        "owner": 1,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "virtual-station-01",
+          "queued_count": 4,
+          "busy": false,
+          "own_positions": [
+            {
+              "experiment_id": "foreign_first",
+              "position": 1
+            },
+            {
+              "experiment_id": "foreign_third",
+              "position": 3
+            }
+          ]
+        }
+      },
+      {
+        "path": "/api/stations/virtual-station-01/queue",
+        "owner": 2,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "virtual-station-01",
+          "queued_count": 4,
+          "busy": false,
+          "own_positions": []
+        }
+      },
+      {
+        "path": "/api/stations/physical-station-01/queue",
+        "owner": 0,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "physical-station-01",
+          "queued_count": 0,
+          "busy": false,
+          "own_positions": []
+        }
+      }
+    ]
+  },
+  {
+    "scenario": "busy",
+    "database": "busy.sqlite",
+    "queue": [
+      "foreign_first",
+      "own_second",
+      "foreign_third",
+      "own_fourth"
+    ],
+    "cases": [
+      {
+        "path": "/api/stations",
+        "owner": 0,
+        "status": 200,
+        "body": [
+          {
+            "station_id": "virtual-station-01",
+            "mode": "simulation",
+            "state": "busy",
+            "capabilities": {
+              "schema_version": "1.0",
+              "station_id": "virtual-station-01",
+              "mode": "simulation",
+              "available": true,
+              "virtual_digital": true,
+              "virtual_analog": false,
+              "physical_digital": false,
+              "physical_analog_routing": false,
+              "physical_execution_slots": 0,
+              "topology_scan_supported": false,
+              "safety_gate_supported": false,
+              "guarded_run_supported": false,
+              "component_resolution_modes": [],
+              "breadboards": [],
+              "hardware_rpc_version": "2.0",
+              "fpga_protocol_version": "fixture-fpga",
+              "firmware_version": "fixture-firmware",
+              "hardware_profile_version": "fixture-profile",
+              "instrument_capabilities": {
+                "logic_analyzer": {
+                  "channels": 4,
+                  "runtime_reconfiguration_supported": false
+                },
+                "oscilloscope": {
+                  "channels": 0,
+                  "runtime_reconfiguration_supported": false
+                },
+                "generator": {
+                  "channels": 0,
+                  "runtime_reconfiguration_supported": false
+                }
+              }
+            }
+          },
+          {
+            "station_id": "physical-station-01",
+            "mode": "hardware",
+            "state": "unavailable",
+            "capabilities": {
+              "schema_version": "1.0",
+              "station_id": "physical-station-01",
+              "mode": "hardware",
+              "available": false,
+              "virtual_digital": false,
+              "virtual_analog": false,
+              "physical_digital": true,
+              "physical_analog_routing": true,
+              "physical_execution_slots": 1,
+              "topology_scan_supported": true,
+              "safety_gate_supported": true,
+              "guarded_run_supported": true,
+              "component_resolution_modes": [
+                "HYBRID"
+              ],
+              "breadboards": [
+                {
+                  "id": "board1",
+                  "model": "board-fixture"
+                }
+              ],
+              "hardware_rpc_version": "2.0",
+              "fpga_protocol_version": "fixture-fpga",
+              "firmware_version": "fixture-firmware",
+              "hardware_profile_version": "fixture-profile",
+              "instrument_capabilities": {
+                "logic_analyzer": {
+                  "channels": 4,
+                  "runtime_reconfiguration_supported": false
+                },
+                "oscilloscope": {
+                  "channels": 1,
+                  "runtime_reconfiguration_supported": false
+                },
+                "generator": {
+                  "channels": 1,
+                  "runtime_reconfiguration_supported": true,
+                  "status": "READY",
+                  "supported_waveforms": [
+                    "SINE"
+                  ],
+                  "offset_min_v": -1.0
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "path": "/api/stations/virtual-station-01/capabilities",
+        "owner": 0,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "virtual-station-01",
+          "mode": "simulation",
+          "available": true,
+          "virtual_digital": true,
+          "virtual_analog": false,
+          "physical_digital": false,
+          "physical_analog_routing": false,
+          "physical_execution_slots": 0,
+          "topology_scan_supported": false,
+          "safety_gate_supported": false,
+          "guarded_run_supported": false,
+          "component_resolution_modes": [],
+          "breadboards": [],
+          "hardware_rpc_version": "2.0",
+          "fpga_protocol_version": "fixture-fpga",
+          "firmware_version": "fixture-firmware",
+          "hardware_profile_version": "fixture-profile",
+          "instrument_capabilities": {
+            "logic_analyzer": {
+              "channels": 4,
+              "runtime_reconfiguration_supported": false
+            },
+            "oscilloscope": {
+              "channels": 0,
+              "runtime_reconfiguration_supported": false
+            },
+            "generator": {
+              "channels": 0,
+              "runtime_reconfiguration_supported": false
+            }
+          }
+        }
+      },
+      {
+        "path": "/api/stations/physical-station-01/capabilities",
+        "owner": 0,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "physical-station-01",
+          "mode": "hardware",
+          "available": false,
+          "virtual_digital": false,
+          "virtual_analog": false,
+          "physical_digital": true,
+          "physical_analog_routing": true,
+          "physical_execution_slots": 1,
+          "topology_scan_supported": true,
+          "safety_gate_supported": true,
+          "guarded_run_supported": true,
+          "component_resolution_modes": [
+            "HYBRID"
+          ],
+          "breadboards": [
+            {
+              "id": "board1",
+              "model": "board-fixture"
+            }
+          ],
+          "hardware_rpc_version": "2.0",
+          "fpga_protocol_version": "fixture-fpga",
+          "firmware_version": "fixture-firmware",
+          "hardware_profile_version": "fixture-profile",
+          "instrument_capabilities": {
+            "logic_analyzer": {
+              "channels": 4,
+              "runtime_reconfiguration_supported": false
+            },
+            "oscilloscope": {
+              "channels": 1,
+              "runtime_reconfiguration_supported": false
+            },
+            "generator": {
+              "channels": 1,
+              "runtime_reconfiguration_supported": true,
+              "status": "READY",
+              "supported_waveforms": [
+                "SINE"
+              ],
+              "offset_min_v": -1.0
+            }
+          }
+        }
+      },
+      {
+        "path": "/api/stations/never-declared/capabilities",
+        "owner": 0,
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "The requested resource was not found.",
+          "request_id": "station-oracle"
+        }
+      },
+      {
+        "path": "/api/stations/never-declared/queue",
+        "owner": 0,
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "The requested resource was not found.",
+          "request_id": "station-oracle"
+        }
+      },
+      {
+        "path": "/api/stations/virtual-station-01/queue",
+        "owner": 0,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "virtual-station-01",
+          "queued_count": 4,
+          "busy": true,
+          "own_positions": [
+            {
+              "experiment_id": "own_second",
+              "position": 2
+            },
+            {
+              "experiment_id": "own_fourth",
+              "position": 4
+            }
+          ]
+        }
+      },
+      {
+        "path": "/api/stations/virtual-station-01/queue",
+        "owner": 1,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "virtual-station-01",
+          "queued_count": 4,
+          "busy": true,
+          "own_positions": [
+            {
+              "experiment_id": "foreign_first",
+              "position": 1
+            },
+            {
+              "experiment_id": "foreign_third",
+              "position": 3
+            }
+          ]
+        }
+      },
+      {
+        "path": "/api/stations/virtual-station-01/queue",
+        "owner": 2,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "virtual-station-01",
+          "queued_count": 4,
+          "busy": true,
+          "own_positions": []
+        }
+      },
+      {
+        "path": "/api/stations/physical-station-01/queue",
+        "owner": 0,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "physical-station-01",
+          "queued_count": 0,
+          "busy": true,
+          "own_positions": []
+        }
+      }
+    ]
+  },
+  {
+    "scenario": "offline",
+    "database": "offline.sqlite",
+    "queue": [
+      "foreign_first",
+      "own_second",
+      "foreign_third",
+      "own_fourth"
+    ],
+    "cases": [
+      {
+        "path": "/api/stations",
+        "owner": 0,
+        "status": 200,
+        "body": [
+          {
+            "station_id": "virtual-station-01",
+            "mode": "simulation",
+            "state": "unavailable",
+            "capabilities": {
+              "schema_version": "1.0",
+              "station_id": "virtual-station-01",
+              "mode": "simulation",
+              "available": false,
+              "virtual_digital": false,
+              "virtual_analog": false,
+              "physical_digital": false,
+              "physical_analog_routing": false,
+              "physical_execution_slots": 0,
+              "topology_scan_supported": false,
+              "safety_gate_supported": false,
+              "guarded_run_supported": false,
+              "component_resolution_modes": [],
+              "hardware_rpc_version": "2.0",
+              "fpga_protocol_version": "UNAVAILABLE",
+              "firmware_version": "UNAVAILABLE",
+              "hardware_profile_version": "UNAVAILABLE",
+              "instrument_capabilities": {
+                "logic_analyzer": {
+                  "channels": 0,
+                  "runtime_reconfiguration_supported": false
+                },
+                "oscilloscope": {
+                  "channels": 0,
+                  "runtime_reconfiguration_supported": false
+                },
+                "generator": {
+                  "channels": 0,
+                  "runtime_reconfiguration_supported": false
+                }
+              }
+            }
+          },
+          {
+            "station_id": "physical-station-01",
+            "mode": "hardware",
+            "state": "unavailable",
+            "capabilities": {
+              "schema_version": "1.0",
+              "station_id": "physical-station-01",
+              "mode": "hardware",
+              "available": false,
+              "virtual_digital": false,
+              "virtual_analog": false,
+              "physical_digital": false,
+              "physical_analog_routing": false,
+              "physical_execution_slots": 0,
+              "topology_scan_supported": false,
+              "safety_gate_supported": false,
+              "guarded_run_supported": false,
+              "component_resolution_modes": [],
+              "hardware_rpc_version": "2.0",
+              "fpga_protocol_version": "UNAVAILABLE",
+              "firmware_version": "UNAVAILABLE",
+              "hardware_profile_version": "UNAVAILABLE",
+              "instrument_capabilities": {
+                "logic_analyzer": {
+                  "channels": 0,
+                  "runtime_reconfiguration_supported": false
+                },
+                "oscilloscope": {
+                  "channels": 0,
+                  "runtime_reconfiguration_supported": false
+                },
+                "generator": {
+                  "channels": 0,
+                  "runtime_reconfiguration_supported": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "path": "/api/stations/virtual-station-01/capabilities",
+        "owner": 0,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "virtual-station-01",
+          "mode": "simulation",
+          "available": false,
+          "virtual_digital": false,
+          "virtual_analog": false,
+          "physical_digital": false,
+          "physical_analog_routing": false,
+          "physical_execution_slots": 0,
+          "topology_scan_supported": false,
+          "safety_gate_supported": false,
+          "guarded_run_supported": false,
+          "component_resolution_modes": [],
+          "hardware_rpc_version": "2.0",
+          "fpga_protocol_version": "UNAVAILABLE",
+          "firmware_version": "UNAVAILABLE",
+          "hardware_profile_version": "UNAVAILABLE",
+          "instrument_capabilities": {
+            "logic_analyzer": {
+              "channels": 0,
+              "runtime_reconfiguration_supported": false
+            },
+            "oscilloscope": {
+              "channels": 0,
+              "runtime_reconfiguration_supported": false
+            },
+            "generator": {
+              "channels": 0,
+              "runtime_reconfiguration_supported": false
+            }
+          }
+        }
+      },
+      {
+        "path": "/api/stations/physical-station-01/capabilities",
+        "owner": 0,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "physical-station-01",
+          "mode": "hardware",
+          "available": false,
+          "virtual_digital": false,
+          "virtual_analog": false,
+          "physical_digital": false,
+          "physical_analog_routing": false,
+          "physical_execution_slots": 0,
+          "topology_scan_supported": false,
+          "safety_gate_supported": false,
+          "guarded_run_supported": false,
+          "component_resolution_modes": [],
+          "hardware_rpc_version": "2.0",
+          "fpga_protocol_version": "UNAVAILABLE",
+          "firmware_version": "UNAVAILABLE",
+          "hardware_profile_version": "UNAVAILABLE",
+          "instrument_capabilities": {
+            "logic_analyzer": {
+              "channels": 0,
+              "runtime_reconfiguration_supported": false
+            },
+            "oscilloscope": {
+              "channels": 0,
+              "runtime_reconfiguration_supported": false
+            },
+            "generator": {
+              "channels": 0,
+              "runtime_reconfiguration_supported": false
+            }
+          }
+        }
+      },
+      {
+        "path": "/api/stations/never-declared/capabilities",
+        "owner": 0,
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "The requested resource was not found.",
+          "request_id": "station-oracle"
+        }
+      },
+      {
+        "path": "/api/stations/never-declared/queue",
+        "owner": 0,
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "The requested resource was not found.",
+          "request_id": "station-oracle"
+        }
+      },
+      {
+        "path": "/api/stations/virtual-station-01/queue",
+        "owner": 0,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "virtual-station-01",
+          "queued_count": 4,
+          "busy": false,
+          "own_positions": [
+            {
+              "experiment_id": "own_second",
+              "position": 2
+            },
+            {
+              "experiment_id": "own_fourth",
+              "position": 4
+            }
+          ]
+        }
+      },
+      {
+        "path": "/api/stations/virtual-station-01/queue",
+        "owner": 1,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "virtual-station-01",
+          "queued_count": 4,
+          "busy": false,
+          "own_positions": [
+            {
+              "experiment_id": "foreign_first",
+              "position": 1
+            },
+            {
+              "experiment_id": "foreign_third",
+              "position": 3
+            }
+          ]
+        }
+      },
+      {
+        "path": "/api/stations/virtual-station-01/queue",
+        "owner": 2,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "virtual-station-01",
+          "queued_count": 4,
+          "busy": false,
+          "own_positions": []
+        }
+      },
+      {
+        "path": "/api/stations/physical-station-01/queue",
+        "owner": 0,
+        "status": 200,
+        "body": {
+          "schema_version": "1.0",
+          "station_id": "physical-station-01",
+          "queued_count": 0,
+          "busy": false,
+          "own_positions": []
+        }
+      }
+    ]
+  },
+  {
+    "scenario": "invalid",
+    "database": "invalid.sqlite",
+    "queue": [
+      "foreign_first",
+      "own_second",
+      "foreign_third",
+      "own_fourth"
+    ],
+    "cases": [
+      {
+        "path": "/api/stations",
+        "owner": 0,
+        "status": 422,
+        "body": {
+          "code": "INVALID_CONTRACT",
+          "message": "The request contains invalid contract data.",
+          "request_id": "station-oracle",
+          "issues": [
+            {
+              "code": "SCHEMA_MINLENGTH",
+              "path": "/firmware_version",
+              "severity": "error",
+              "profile": "transport",
+              "message": "The field does not match its declared contract."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/api/stations/virtual-station-01/capabilities",
+        "owner": 0,
+        "status": 422,
+        "body": {
+          "code": "INVALID_CONTRACT",
+          "message": "The request contains invalid contract data.",
+          "request_id": "station-oracle",
+          "issues": [
+            {
+              "code": "SCHEMA_MINLENGTH",
+              "path": "/firmware_version",
+              "severity": "error",
+              "profile": "transport",
+              "message": "The field does not match its declared contract."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/api/stations/physical-station-01/capabilities",
+        "owner": 0,
+        "status": 422,
+        "body": {
+          "code": "INVALID_CONTRACT",
+          "message": "The request contains invalid contract data.",
+          "request_id": "station-oracle",
+          "issues": [
+            {
+              "code": "SCHEMA_MINLENGTH",
+              "path": "/firmware_version",
+              "severity": "error",
+              "profile": "transport",
+              "message": "The field does not match its declared contract."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/api/stations/never-declared/capabilities",
+        "owner": 0,
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "The requested resource was not found.",
+          "request_id": "station-oracle"
+        }
+      },
+      {
+        "path": "/api/stations/never-declared/queue",
+        "owner": 0,
+        "status": 404,
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "The requested resource was not found.",
+          "request_id": "station-oracle"
+        }
+      }
+    ]
+  }
+]
