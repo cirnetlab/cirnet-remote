@@ -4,11 +4,11 @@ import { isAbsolute, join, relative, resolve, sep } from 'node:path'
 
 export const target = 'x86_64-pc-windows-msvc'
 export const repositories = Object.freeze({
-  contracts: 'cirnet-contracts-next',
-  simulator: 'cirnet-simulator-next',
-  hardware: 'cirnet-hardware-next',
-  remote: 'cirnet-remote-next',
-  interface: 'cirnet-interface-next',
+  contracts: 'cirnet-contracts',
+  simulator: 'cirnet-simulator',
+  hardware: 'cirnet-hardware',
+  remote: 'cirnet-remote',
+  interface: 'cirnet-interface',
   embedded: 'cirnet-embedded-hardware',
 })
 

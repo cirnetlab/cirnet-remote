@@ -14,7 +14,7 @@
 
 ### Bối cảnh triển khai tại ngày đối chiếu
 
-[Kiến trúc hệ thống Next](vi/architecture/system.md) mô tả runtime native và trạng thái nghiệm thu vật lý.
+[Kiến trúc hệ thống native](vi/architecture/system.md) mô tả runtime native và trạng thái nghiệm thu vật lý.
 
 - `cirnet-fpga` trên `master` hiện có **Lab-First RTL scaffold**, với `fpga/experiment-controller/rtl/top.v`, `fpga/instrument/rtl/top.v`, testbench `fpga/simulation/`, verification tooling, lockfiles và tài liệu EN/VI. README gọi đây là **source scaffold 0.2.2 candidate**; **không** tuyên bố có firmware trên board thật.
 - `cirnet-hardware` sở hữu **Rust HardwareStation, private transport, Stop, station lifecycle và worker supervision**; `cirnet-remote` sở hữu quyền truy cập, scheduler/lease, experiment và system release selection.
@@ -1298,7 +1298,7 @@ JTAG/configuration/bench override không được trở thành cổng bypass pro
 
 | Vai trò | Mục đích | Owner chính | Quyền và yêu cầu |
 |---|---|---|---|
-| **Lab Control FPGA** | Scan, protected routing, clock/trigger, measurements, instruments và safety interlocks | `cirnet-fpga` (RTL) + `cirnet-hardware` (host/driver) | Chỉ bitstream đã duyệt, nạp bởi operator được ủy quyền, fail-safe trên board cụ thể |
+| **Lab Control FPGA** | Scan, protected routing, clock/trigger, measurements, instruments và safety interlocks | `cirnet-embedded-hardware` (RTL) + `cirnet-hardware` (host/driver) | Chỉ bitstream đã duyệt, nạp bởi operator được ủy quyền, fail-safe trên board cụ thể |
 | **Learner FPGA Target** | Sinh viên viết HDL, build, simulate, flash/debug trên board học tập | `cirnet-ide`, `cirnet-toolchains`, `cirnet-devices`; `cirnet-silicon` phụ trách EDA learning | Artifacts không tin cậy mặc định; sandbox, board isolation, upload permission riêng |
 
 **Không cho phép** learner-generated bitstream ghi đè Lab Control FPGA đang nối protected fabric của sinh viên. Nếu sử dụng cùng chủng FPGA thì vẫn phải là **khác thiết bị hoặc khác trust/isolation boundary** với interlock được chứng minh. Phải tách namespace artifact, toolchain profile, execution policy và release channel.
@@ -1328,7 +1328,7 @@ CIRNET Interface / Studio (viewer, not hardware authority)
   -> cirnet-remote (Rust): identity, authorization, lease, experiment
   -> cirnet-contracts: selected version + schema/protocol identity
   -> cirnet-hardware (Rust): plan validation, transport, safe stop
-  -> cirnet-fpga RTL: permit/route/scan/trigger/capture under hard interlock
+  -> cirnet-embedded-hardware RTL: permit/route/scan/trigger/capture under hard interlock
   -> protected external electronics + actual student DUT
   -> real observations + capture quality + checksum
   -> Hardware -> Remote -> authorized UI/LMS/Analyze consumers
@@ -1346,7 +1346,7 @@ Các ứng dụng (Lab, Analyze, Silicon, Robotics, IoT) có thể **đọc** wa
 
 | Repository | FPGA-related ownership | Không được thực hiện |
 |---|---|---|
-| `cirnet-fpga` | RTL, FPGA module logic, SDC/QSF target, testbench, source/bitstream provenance và board-specific timing evidence | Không Auth, Scheduler, Projects, Grading, REST, simulator engine |
+| `cirnet-embedded-hardware` | RTL, FPGA module logic, SDC/QSF target, testbench, source/bitstream provenance và board-specific timing evidence | Không Auth, Scheduler, Projects, Grading, REST, simulator engine |
 | `cirnet-hardware` | Rust HardwareStation, protected transport/driver, station safe-state, worker supervision, applied-image acknowledgment | Không tự đổi canonical schema hoặc thay hard electrical protection |
 | `cirnet-remote` | Experiment admission, auth delegation, durable lease/quarantine, provenance lock, capture/API | Không ghi register FPGA/MUX từ public handler |
 | `cirnet-contracts` | Canonical types, FPGA protocol mapping, RPC, hardware capability, capture envelope | Không tự triển khai RTL hoặc kiểm chứng electrical limits |
@@ -1394,7 +1394,7 @@ Dữ liệu do `cirnet-project` sở hữu về lifecycle; file packaging/import
 
 ## 36.3 Version domains
 
-Tách biệt version của: Repository tag, RTL source, bitstream, ICD/wire ABI, Contracts schema, BoardProfile, toolchain, pinout/PCB, FPGA IP core, capture encoding, selected CIRNET system release. Định dạng tag/release chung **`<repo_name>-<version>`**; ví dụ `cirnet-fpga-0.2.2` chỉ minh họa **cấu trúc tên**, không khẳng định tag đã phát hành. Không sửa lịch sử đã pin.
+Tách biệt version của: Repository tag, RTL source, bitstream, ICD/wire ABI, Contracts schema, BoardProfile, toolchain, pinout/PCB, FPGA IP core, capture encoding, selected CIRNET system release. Định dạng tag/release chung **`<repo_name>-<version>`**; ví dụ `cirnet-embedded-hardware-0.2.2` chỉ minh họa **cấu trúc tên**, không khẳng định tag đã phát hành. Không sửa lịch sử đã pin.
 
 ---
 

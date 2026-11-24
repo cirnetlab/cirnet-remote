@@ -5,7 +5,7 @@
 | Profile | Contract and supported client |
 | --- | --- |
 | Published system 0.1.4, Python API 0.1.2 | The immutable Contracts 0.1.2 handoff describes 63 operations. The published Python API serves the unversioned operations below and their V2 counterparts where present. Pair it with published Interface 0.1.4. |
-| CIRNET Remote Next | The authenticated handoff is projected to 46 HTTP operations in the served `/openapi.json`. Pair it with Interface Next and the SDK generated from this exact projection. After authorization, retired methods return 404 or 405. |
+| CIRNET Remote | The authenticated handoff is projected to 46 HTTP operations in the served `/openapi.json`. Pair it with Interface and the SDK generated from this exact projection. After authorization, retired methods return 404 or 405. |
 
 The [cutover commit](https://github.com/cirnetlab/cirnet-remote/commit/06d205755acd956d42bdbab27efabadd51a37a9f)
 and [Unreleased notes](../../changelogs/README.md) record the

@@ -2,6 +2,7 @@
 
 ## 0.3.0-dev.1
 
+- Align repository references with the canonical CIRNET names.
 - Migrate the Rust REST and WebSocket service into API, domain, application and infrastructure directories.
 - Build against Contracts Next and keep the existing RPC and data compatibility.
 - Preserve native deployment, migrations, capture persistence and scheduler safety regression tests.
@@ -16,6 +17,7 @@
 
 ## Tiếng Việt
 
+- Đồng bộ tham chiếu với tên kho CIRNET chính thức.
 - Chuyển dịch vụ REST và WebSocket Rust vào các thư mục API, domain, application và infrastructure.
 - Dựng cùng Contracts Next và giữ tương thích RPC cùng dữ liệu hiện có.
 - Giữ triển khai native, chuyển đổi dữ liệu, lưu bản thu và bộ hồi quy an toàn bộ lập lịch.

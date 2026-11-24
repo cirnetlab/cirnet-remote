@@ -1,4 +1,4 @@
-# CIRNET Remote Next
+# CIRNET Remote
 
 [Tiếng Việt](../vi/index.md)
 

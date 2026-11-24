@@ -5,14 +5,14 @@ edition = "2024"
 rust-version = "1.90"
 license-file = "LICENSE"
 description = "CIRNET native Remote API and control orchestration"
-repository = "https://github.com/cirnetlab/cirnet-remote-next"
+repository = "https://github.com/cirnetlab/cirnet-remote"
 
 [[bin]]
 name = "cirnet-remote"
 path = "src/main.rs"
 
 [dependencies]
-cirnet-contracts-native = { path = "../cirnet-contracts-next", version = "=0.3.0-dev.1" }
+cirnet-contracts-native = { path = "../cirnet-contracts", version = "=0.3.0-dev.1" }
 argon2 = "=0.5.3"
 axum = { version = "=0.8.9", features = ["ws", "http1", "json", "tokio"] }
 base64 = "=0.22.1"
@@ -37,7 +37,7 @@ url = "=2.5.7"
 uuid = { version = "=1.18.1", features = ["v4", "v5"] }
 
 [build-dependencies]
-cirnet-contracts-native = { path = "../cirnet-contracts-next", version = "=0.3.0-dev.1" }
+cirnet-contracts-native = { path = "../cirnet-contracts", version = "=0.3.0-dev.1" }
 prost = "=0.14.1"
 prost-types = "=0.14.1"
 tonic-prost-build = "=0.14.2"

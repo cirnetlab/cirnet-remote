@@ -2,27 +2,27 @@
 
 [English](../../en/contributing/verification.md)
 
-Workflow kiểm chứng thành phần Windows x64 chạy khi push lên `master` với commit chính xác của Contracts Next được ghim trong workflow. Có thể chọn lại commit khi chạy thủ công. Workflow ứng viên native Windows x64 vẫn chạy thủ công với các commit thành phần được chỉ định.
+Workflow kiểm chứng thành phần Windows x64 chạy khi push lên `master` với commit chính xác của Contracts được ghim trong workflow. Có thể chọn lại commit khi chạy thủ công. Workflow ứng viên native Windows x64 vẫn chạy thủ công với các commit thành phần được chỉ định.
 
-Tạo Actions secret `CIRNET_DEPENDENCIES_READ_TOKEN` trong [cài đặt tổ chức cirnetlab](https://github.com/organizations/cirnetlab/settings/secrets/actions). Chọn **Selected repositories** và thêm các repo chạy workflow. Dùng fine-grained token có resource owner là `cirnetlab` và quyền `Contents: read` trên các repo private được liệt kê bên dưới. Workflow thành phần cần `cirnet-contracts-next`. Workflow ứng viên native thủ công cần thêm `cirnet-simulator-next` và `cirnet-embedded-hardware`. Để giữ phạm vi token dùng chung cho CI thành phần, dùng secret cùng tên ở cấp repo Remote với các quyền mà workflow ứng viên cần.
+Tạo Actions secret `CIRNET_DEPENDENCIES_READ_TOKEN` trong [cài đặt tổ chức cirnetlab](https://github.com/organizations/cirnetlab/settings/secrets/actions). Chọn **Selected repositories** và thêm các repo chạy workflow. Dùng fine-grained token có resource owner là `cirnetlab` và quyền `Contents: read` trên các repo private được liệt kê bên dưới. Workflow thành phần cần `cirnet-contracts`. Workflow ứng viên native thủ công cần thêm `cirnet-simulator` và `cirnet-embedded-hardware`. Để giữ phạm vi token dùng chung cho CI thành phần, dùng secret cùng tên ở cấp repo Remote với các quyền mà workflow ứng viên cần.
 
-Cấp phiên bên ngoài bằng công cụ phân bổ artifact của Contracts Next. Đặt đích Cargo, tệp cơ sở dữ liệu và nhật ký tại đó. Đặt CIRNET_CONTRACTS_ROOT thành checkout Contracts Next đã chọn rồi chạy cargo fmt --all --check và cargo test --locked. Để kiểm chứng CLI chuyển đổi cơ sở dữ liệu, đặt CIRNET_REMOTE_CLI_DIR thành thư mục mới trong phiên rồi chạy cargo test --locked --test cli -- --ignored.
+Cấp phiên bên ngoài bằng công cụ phân bổ artifact của Contracts. Đặt đích Cargo, tệp cơ sở dữ liệu và nhật ký tại đó. Đặt CIRNET_CONTRACTS_ROOT thành checkout Contracts đã chọn rồi chạy cargo fmt --all --check và cargo test --locked. Để kiểm chứng CLI chuyển đổi cơ sở dữ liệu, đặt CIRNET_REMOTE_CLI_DIR thành thư mục mới trong phiên rồi chạy cargo test --locked --test cli -- --ignored.
 
 ## Fixture hồi quy legacy
 
-Chạy bộ kiểm chứng fixture Windows x64 từ checkout Remote Next với Python 3.14,
+Chạy bộ kiểm chứng fixture Windows x64 từ checkout Remote với Python 3.14,
 Node, Git và toolchain Rust đã ghim. Đặt `CIRNET_ARTIFACTS_DIR` thành thư mục cha
 đầu ra tuyệt đối bên ngoài checkout và `CIRNET_CONTRACTS_ROOT` thành checkout
-Contracts Next đã chọn.
+Contracts đã chọn.
 
 ```powershell
 python -I -B tests/reference/verify.py
 python -I -B tests/reference/verify.py --postgres-dsn-file <tệp-dsn-của-phiên>
 ```
 
-Remote Next lưu bộ dữ liệu JSON đã kiểm chứng cùng mã tạo cơ sở dữ liệu trong
+Remote lưu bộ dữ liệu JSON đã kiểm chứng cùng mã tạo cơ sở dữ liệu trong
 `tests/reference`. Trình chạy kiểm tra SHA-256, tạo phiên cơ sở dữ liệu mới và sinh
-mã RPC cho trạm kiểm thử từ Contracts Next. [Nguồn và giấy phép](../../../tests/reference/README.md).
+mã RPC cho trạm kiểm thử từ Contracts. [Nguồn và giấy phép](../../../tests/reference/README.md).
 Để chạy ngoại tuyến, dùng `--wheelhouse` với wheel đã khóa cùng `--offline-cargo`.
 Để kiểm tra bộ quản lý thí nghiệm, khôi phục và Stop với binary đã chọn, truyền đường dẫn
 manifest trong gói qua `--candidate-manifest` cùng SHA-256 đã duyệt qua

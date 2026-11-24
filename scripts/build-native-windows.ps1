@@ -14,12 +14,12 @@ if (-not $IsWindows -or $env:VSCMD_ARG_TGT_ARCH -ne 'x64') {
 }
 $workspace = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '../..')).Path
 $repoNames = @(
-    'cirnet-contracts-next', 'cirnet-simulator-next', 'cirnet-hardware-next',
-    'cirnet-remote-next', 'cirnet-interface-next', 'cirnet-embedded-hardware'
+    'cirnet-contracts', 'cirnet-simulator', 'cirnet-hardware',
+    'cirnet-remote', 'cirnet-interface', 'cirnet-embedded-hardware'
 )
 $roots = @($repoNames | ForEach-Object { Join-Path $workspace $_ })
 $allocator = Join-Path $roots[0] 'tools/artifact-paths/cirnet_artifact_paths/artifact-paths.mjs'
-$env:CIRNET_ARTIFACTS_CONTEXT = @{ owner = 'cirnet-next-native-candidate'; roots = $roots } | ConvertTo-Json -Compress
+$env:CIRNET_ARTIFACTS_CONTEXT = @{ owner = 'cirnet-native-candidate'; roots = $roots } | ConvertTo-Json -Compress
 $env:CIRNET_ARTIFACTS_SESSION = $null
 $env:NETCIRCUIT_ARTIFACTS_SESSION = $null
 $env:CIRNET_ARTIFACTS_SESSION = node $allocator --directory (Resolve-Path -LiteralPath $OutputParent).Path

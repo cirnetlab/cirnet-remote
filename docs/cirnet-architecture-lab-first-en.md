@@ -7,7 +7,7 @@
 > **Source document:** `cirnet-Remote_Architecture_Lab-First.md`; restructured and standardized for six repositories, incorporating boundaries identified in the existing codebase.  
 > **Baseline review date:** 2026-11-15. The implementation observations below describe that baseline. Production or electrical safety qualification requires separate evidence for the selected profile.
 >
-> **Next implementation:** The [system architecture](en/architecture/system.md) records the current native topology and repository ownership.
+> **Native implementation:** The [system architecture](en/architecture/system.md) records the current native topology and repository ownership.
 
 ## 0. Executive Summary
 
@@ -81,7 +81,7 @@ The non-negotiable philosophy is:
 | [`cirnet-contracts`](https://github.com/cirnetlab/cirnet-contracts) | Canonical CircuitGraph/Assignment/Physical Lab schemas, catalog, RPC, NCAP, wire protocols, code generation and SDK | **Rust** runtime and generator; generated TS bindings | Business API route registration instead of Remote; station or user management |
 | [`cirnet-hardware`](https://github.com/cirnetlab/cirnet-hardware) | `HardwareStation`, local-only RPC, station lifecycle, safe Stop, FPGA transport/driver, physical protection integration and supervised simulator worker | **Rust** (`tonic`, `tokio`) | User authorization or durable leases/business databases |
 | [`cirnet-simulator`](https://github.com/cirnetlab/cirnet-simulator) | Deterministic simulation engine, digital event model, bounded DC, SPICE adapter boundary and worker protocol | **C++ is the default language**; pinned, supervised and verified worker | Browser access, user permissions, physical FPGA or application database |
-| [`cirnet-fpga`](https://github.com/cirnetlab/cirnet-fpga) | RTL, timing, triggers, protected control, FPGA protocol decoder, digital routing controller, instrument/SDRAM interfaces and testbenches | **HDL/RTL** (Verilog/SystemVerilog), not replaced with Rust | Auth, REST, database or business graph compiler |
+| [`cirnet-embedded-hardware`](https://github.com/cirnetlab/cirnet-embedded-hardware) | RTL, timing, triggers, protected control, FPGA protocol decoder, digital routing controller, instrument/SDRAM interfaces and testbenches | **HDL/RTL** (Verilog/SystemVerilog), not replaced with Rust | Auth, REST, database or business graph compiler |
 
 **Deployment profiles.** Standalone Lab uses Remote's local principals, projects and Lab assignments. For a scope that has completed cutover, Platform provides identity and tenant context, Project owns project revisions and ACLs, and LMS owns academic assignments, submissions and grades. Remote continues to own Lab authorization, leases, technical configuration and experiment evidence. Follow the scoped migration and rollback rules in [Ecosystem §5.1](cirnetlab-architecture-en.md#51-standalone-lab-and-integrated-ownership).
 
@@ -138,7 +138,7 @@ Historical tags must remain available for rollback. CIRNETLAB's newer tag/releas
 │     SPICE adapter (future)             │                         │
 └────────────────────────────────────────┼──────────────────────────┘
                                          ▼
-                                cirnet-fpga · RTL/HDL
+                                cirnet-embedded-hardware · RTL/HDL
                              FPGA + switching/routing fabric
                              + safe power / ADC / DAC / AFE
                                          │
@@ -339,7 +339,7 @@ A selected E2E set must contain at least:
 | `cirnet-contracts` | Rust crate/source revision, schema fingerprint, SDK artifact digest, RPC descriptor hash |
 | `cirnet-hardware` | Rust service digest, selected RPC version, station profile/capability set |
 | `cirnet-simulator` | C++ worker executable SHA-256, source revision, private worker protocol version |
-| `cirnet-fpga` | Source/RTL revision when testing FPGA; Virtual Digital must not require a physical board |
+| `cirnet-embedded-hardware` | Source/RTL revision when testing FPGA; Virtual Digital must not require a physical board |
 | System | Release-set identity, test profile, OS, toolchain, selected backend and data fixture |
 
 Do not use dynamic `latest`, branch HEAD, an unpinned executable or manually copied SDKs for acceptance. Validate SHA-256 against the **actual artifact bytes**. Digests ensure integrity but do not replace trust/signature or permission review.
@@ -1158,7 +1158,7 @@ This EN/VI pair governs Lab execution and electrical safety. The [Ecosystem Arch
 - Browser UI: `cirnet-interface`.
 - Runtime stations/transport: `cirnet-hardware`.
 - Workers/models: `cirnet-simulator`.
-- Board/RTL/timing/bench: `cirnet-fpga`.
+- Board/RTL/timing/bench: `cirnet-embedded-hardware`.
 
 For cross-repository changes:
 

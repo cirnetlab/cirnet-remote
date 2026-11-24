@@ -1,4 +1,4 @@
-# CIRNET Remote Next
+# CIRNET Remote
 
 [English](../en/index.md)
 

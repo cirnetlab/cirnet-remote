@@ -1,4 +1,4 @@
-# CIRNET Remote Next
+# CIRNET Remote
 
 [English documentation](docs/en/index.md) · [Tài liệu tiếng Việt](docs/vi/index.md) · [Changelog](docs/changelogs/README.md)
 

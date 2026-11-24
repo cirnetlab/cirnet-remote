@@ -5,7 +5,7 @@
 | Hồ sơ | Hợp đồng và client được hỗ trợ |
 | --- | --- |
 | Hệ thống 0.1.4 đã phát hành, Python API 0.1.2 | Handoff bất biến của Contracts 0.1.2 mô tả 63 operation. Python API đã phát hành phục vụ các route chưa có tiền tố V2 bên dưới và các bản V2 tương ứng nếu có. Ghép với Interface 0.1.4 đã phát hành. |
-| Ứng viên Windows native, Remote 0.2.4 | Từ handoff đã kiểm tra digest, runtime chiếu 46 operation vào `/openapi.json`. Ghép với Interface Next và SDK sinh từ đúng bản chiếu đó. Sau bước kiểm quyền, method đã ngừng trả 404 hoặc 405. |
+| Ứng viên Windows native, Remote 0.2.4 | Từ handoff đã kiểm tra digest, runtime chiếu 46 operation vào `/openapi.json`. Ghép với Interface và SDK sinh từ đúng bản chiếu đó. Sau bước kiểm quyền, method đã ngừng trả 404 hoặc 405. |
 
 [Commit chuyển đổi](https://github.com/cirnetlab/cirnet-remote/commit/06d205755acd956d42bdbab27efabadd51a37a9f)
 và [mục Unreleased](../../changelogs/README.md) ghi nhận

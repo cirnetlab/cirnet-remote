@@ -7,7 +7,7 @@
 > **Tài liệu nguồn:** `cirnet-Remote_Architecture_Lab-First.md`; được tái cấu trúc và chuẩn hóa cho sáu Repository, bổ sung các ranh giới đã xác định trong mã nguồn hiện có.  
 > **Ngày rà soát cơ sở:** 2026-11-15. Các quan sát triển khai bên dưới mô tả thời điểm đó. Nghiệm thu production hoặc an toàn điện cần bằng chứng riêng cho cấu hình đã chọn.
 >
-> **Triển khai Next:** [Kiến trúc hệ thống](vi/architecture/system.md) ghi topology native hiện tại và quyền sở hữu của các kho.
+> **Triển khai native:** [Kiến trúc hệ thống](vi/architecture/system.md) ghi topology native hiện tại và quyền sở hữu của các kho.
 
 ## 0. Tóm tắt điều hành
 
@@ -81,7 +81,7 @@ Triết lý bất biến:
 | [`cirnet-contracts`](https://github.com/cirnetlab/cirnet-contracts) | Canonical CircuitGraph/Assignment/Physical Lab/schema, catalog, RPC, NCAP, wire protocol, codegen, SDK | **Rust** runtime + generator; TS bindings được sinh | Không đăng ký API business routes thay Remote, không quản lý station hoặc user |
 | [`cirnet-hardware`](https://github.com/cirnetlab/cirnet-hardware) | `HardwareStation`, local-only RPC, station lifecycle, safe stop, FPGA transport/driver, physical protection integration, supervised simulator worker | **Rust** (`tonic`, `tokio`) | Không cấp quyền người dùng, không giữ durable lease/DB nghiệp vụ |
 | [`cirnet-simulator`](https://github.com/cirnetlab/cirnet-simulator) | Deterministic simulation engine, digital event model, bounded DC, SPICE adapter boundary, worker protocol | **C++ là ngôn ngữ mặc định**; worker được pin, giám sát và kiểm chứng | Không truy cập browser, quyền user, FPGA vật lý hoặc DB ứng dụng |
-| [`cirnet-fpga`](https://github.com/cirnetlab/cirnet-fpga) | RTL, timing, trigger, protected control, FPGA protocol decoder, digital routing controller, instrument/SDRAM interface, testbench | **HDL/RTL** (Verilog/SystemVerilog), không bị thay bằng Rust | Không chứa auth, REST, database hoặc trình biên dịch graph business |
+| [`cirnet-embedded-hardware`](https://github.com/cirnetlab/cirnet-embedded-hardware) | RTL, timing, trigger, protected control, FPGA protocol decoder, digital routing controller, instrument/SDRAM interface, testbench | **HDL/RTL** (Verilog/SystemVerilog), không bị thay bằng Rust | Không chứa auth, REST, database hoặc trình biên dịch graph business |
 
 **Cấu hình triển khai.** Lab độc lập dùng định danh, dự án và bài Lab cục bộ của Remote. Với phạm vi đã chuyển giao, Platform cung cấp định danh và ngữ cảnh tenant, Project sở hữu phiên bản dự án và ACL, còn LMS sở hữu bài tập học vụ, bài nộp và điểm. Remote tiếp tục sở hữu phân quyền Lab, lease, cấu hình kỹ thuật và bằng chứng thí nghiệm. Áp dụng quy tắc chuyển giao theo phạm vi và quay lui tại [Ecosystem §5.1](cirnetlab-architecture-vi.md#51-lab-độc-lập-và-quyền-sở-hữu-khi-tích-hợp).
 
@@ -138,7 +138,7 @@ Các tag lịch sử vẫn phải được giữ để rollback. Quy ước tag/
 │     SPICE adapter (future)             │                         │
 └────────────────────────────────────────┼──────────────────────────┘
                                          ▼
-                               cirnet-fpga · RTL/HDL
+                               cirnet-embedded-hardware · RTL/HDL
                             FPGA + switching/routing fabric
                             + safe power / ADC / DAC / AFE
                                          │
@@ -339,7 +339,7 @@ Một bộ E2E được chọn phải có ít nhất:
 | `cirnet-contracts` | Rust crate/source revision, schema fingerprint, SDK artifact digest, RPC descriptor hash |
 | `cirnet-hardware` | Rust service digest, selected RPC version, station profile/capability set |
 | `cirnet-simulator` | C++ worker executable SHA-256, source revision, private worker protocol version |
-| `cirnet-fpga` | Source/RTL revision khi kiểm tra FPGA; Virtual Digital không được đòi board thực |
+| `cirnet-embedded-hardware` | Source/RTL revision khi kiểm tra FPGA; Virtual Digital không được đòi board thực |
 | System | release-set identity, test profile, OS, toolchain, selected backend and data fixture |
 
 Không dùng `latest`, branch HEAD động, unpinned executable hoặc SDK copy thủ công khi nghiệm thu. Kiểm SHA-256 artifact trên **bytes thực tế**. Digest đảm bảo integrity, không thay thế trust/signature hoặc permission review.
@@ -1161,7 +1161,7 @@ Cặp Anh–Việt này quy định thực thi Lab và an toàn điện. [Kiến
 - Browser UI: `cirnet-interface`.
 - Runtime station/transport: `cirnet-hardware`.
 - Worker/models: `cirnet-simulator`.
-- Board/RTL/timing/bench: `cirnet-fpga`.
+- Board/RTL/timing/bench: `cirnet-embedded-hardware`.
 
 Khi triển khai thay đổi liên Repo:
 

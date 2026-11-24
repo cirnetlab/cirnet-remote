@@ -167,7 +167,7 @@ Every repository has one primary bounded context. **Outputs are target interface
 | [`cirnet-remote`](https://github.com/cirnetlab/cirnet-remote) | **Lab domain control plane**, including admission, experiments, technical Lab assignment configuration, scheduling/leases, APIs/WS, plans, capture persistence and **Lab release-set selection**. See §5 for standalone ownership. | Authorized Lab APIs, operation events and pinned Lab manifest | Shared identity or project lifecycle after the respective cutover, hardware drivers, academic gradebook |
 | [`cirnet-hardware`](https://github.com/cirnetlab/cirnet-hardware) | Rust Virtual/Physical HardwareStation, local RPC, worker supervision, safe Stop and FPGA transport | Station RPC, capabilities, protection/driver status | Business IAM, grading, bypassing protection |
 | [`cirnet-simulator`](https://github.com/cirnetlab/cirnet-simulator) | **Long-term default C++** discrete-event digital simulation, bounded DC, private worker protocol and SPICE adapter | Pinned worker and honest simulation result/waveform | User rights, physical FPGA control, unsupported analog claims |
-| [`cirnet-fpga`](https://github.com/cirnetlab/cirnet-fpga) | RTL, FPGA protocol implementation, timing/trigger/capture, protected routing, SDRAM/CDC and testbench | RTL sources, verified board bitstreams, timing/HIL artifacts | Web API, global IAM, scheduler or project database |
+| [`cirnet-embedded-hardware`](https://github.com/cirnetlab/cirnet-embedded-hardware) | RTL, FPGA protocol implementation, timing/trigger/capture, protected routing, SDRAM/CDC and testbench | RTL sources, verified board bitstreams, timing/HIL artifacts | Web API, global IAM, scheduler or project database |
 | [`cirnet-nhspice`](https://github.com/cirnetlab/cirnet-nhspice) | **Conditional owner** for independently versioned native SPICE build/patch/packaging, model provenance and licensing | SPICE native dependency package and compatibility evidence | A second competing public Simulator API or worker authority |
 
 **Open ownership decision:** the `cirnet-nhspice` README title currently reads `cirnet-core-spice`, unlike its repository name. Decide whether independent SPICE packaging/patches are needed, then align naming and licensing. The simulator still owns solver adapters and execution. Do not rename/delete a repository or promise full SPICE until its role and actual implementation are verified.
@@ -404,7 +404,7 @@ Automated evidence checks, instructor grading, and AI-generated suggestions are 
 
 ### 12.3 Semiconductor and EDA learning
 
-`cirnet-silicon` owns the educational HDL→synthesis→STA→physical design→DRC/LVS workflow, PDK adapters and sign-off evidence references. Reuse `cirnet-fpga` where genuine RTL/testbench or board-specific capability belongs, `toolchains` for exact tools, `devices` for board programming and `project` for artifacts. FPGA simulation/synthesis success **does not** imply ASIC tapeout readiness; PDK rights, corner analysis, STA, physical rule checking, licensed tooling and review must be evaluated separately.
+`cirnet-silicon` owns the educational HDL→synthesis→STA→physical design→DRC/LVS workflow, PDK adapters and sign-off evidence references. Reuse `cirnet-embedded-hardware` where genuine RTL/testbench or board-specific capability belongs, `toolchains` for exact tools, `devices` for board programming and `project` for artifacts. FPGA simulation/synthesis success **does not** imply ASIC tapeout readiness; PDK rights, corner analysis, STA, physical rule checking, licensed tooling and review must be evaluated separately.
 
 ### 12.4 AI learning and engineering assistance
 
@@ -474,7 +474,7 @@ For **new** CIRNETLAB repository releases:
 ```text
 Git tag        = <repo_name>-<version>
 GitHub Release = <repo_name>-<version>
-Example       = cirnet-fpga-0.2.2   # format illustration only
+Example       = cirnet-embedded-hardware-0.2.2   # format illustration only
 ```
 
 Repository, SDK, schema, API, RPC, worker protocol, project-format, board/firmware, simulation model, PDK/toolchain and integrated system versions remain **distinct domains**. Never rename a historic published tag or silently alter pinned release artifacts.
@@ -526,7 +526,7 @@ The GitHub organization maintains **independent repositories**. Local clones und
 
 ### 18.1 Architecture document ownership
 
-This EN/VI pair is the authoritative Ecosystem target reference for organization boundaries and integration in the Next repositories. Domain repositories link to this reference and the applicable Lab-First or FPGA architecture. Keep the paired editions aligned by meaning and retain historical revisions in Git.
+This EN/VI pair is the authoritative Ecosystem target reference for organization boundaries and integration in the canonical CIRNET repositories. Domain repositories link to this reference and the applicable Lab-First or FPGA architecture. Keep the paired editions aligned by meaning and retain historical revisions in Git.
 
 ---
 

@@ -160,7 +160,7 @@ Mỗi Repo dưới đây có **một vùng trách nhiệm chính**. Trường *O
 | **[`cirnet-remote`](https://github.com/cirnetlab/cirnet-remote)** | **Điều phối Lab**, gồm quyền vào trạm, thí nghiệm, cấu hình kỹ thuật của bài Lab, lịch/lease, API/WS, kế hoạch chạy, lưu capture và **chọn bộ phát hành Lab**. Xem §5 về quyền trong chế độ độc lập. | Lab APIs, experiment events/results, pinned Lab release-set | Định danh và vòng đời dự án dùng chung sau khi chuyển giao, driver phần cứng, sổ điểm học vụ |
 | **[`cirnet-hardware`](https://github.com/cirnetlab/cirnet-hardware)** | Rust HardwareStation (virtual/physical), local-only RPC, worker supervision, protected hardware operations, safe Stop, transport abstraction | Station RPC, capabilities, driver reports, verified cleanup | Không sở hữu user/business DB, không tự chấm đúng/sai hoặc bypass safety gate |
 | **[`cirnet-simulator`](https://github.com/cirnetlab/cirnet-simulator)** | **C++ mặc định lâu dài** cho deterministic digital simulation, bounded DC, worker protocol và **SPICE adapter** | Pinned C++ workers, simulation result/status, waveform/capture | Không tự định nghĩa user rights, điều khiển FPGA thật, hoặc phát hành analog capability không có solver |
-| **[`cirnet-fpga`](https://github.com/cirnetlab/cirnet-fpga)** | HDL/RTL, FPGA protocol implementation, timing/trigger/capture, protected routing controller, SDRAM/CDC và hardware testbench | Verified RTL, board-specific bitstreams, timing/HIL evidence | Không sở hữu Web API, IAM, project DB, remote scheduler |
+| **[`cirnet-embedded-hardware`](https://github.com/cirnetlab/cirnet-embedded-hardware)** | HDL/RTL, FPGA protocol implementation, timing/trigger/capture, protected routing controller, SDRAM/CDC và hardware testbench | Verified RTL, board-specific bitstreams, timing/HIL evidence | Không sở hữu Web API, IAM, project DB, remote scheduler |
 | **[`cirnet-nhspice`](https://github.com/cirnetlab/cirnet-nhspice)** | **Đề xuất có điều kiện:** native SPICE engine dependency packaging/fork patch set, model-compatibility/licensing/provenance nếu thật sự cần phát hành độc lập | Versioned SPICE native artifacts và compatibility tests | Không tạo simulator API/worker thứ hai; adapter gọi solver vẫn thuộc `cirnet-simulator` |
 
 **Quyết định mở:** README `cirnet-nhspice` hiện dùng heading `cirnet-core-spice`, không khớp tên Repo. Chỉ giữ Repo này hoạt động nếu có nhu cầu cụ thể về patch set, phát hành hoặc license boundary; nếu không, `cirnet-simulator` tích hợp upstream engine dưới dependency pin vẫn đủ. **Không tự xóa hoặc đổi tên Repo đã có.**
@@ -465,7 +465,7 @@ Các lệnh từ dashboard/AI phải qua actor authorization, policy, bounded si
 
 ### 12.3 Semiconductor / CIRNET Silicon
 
-`cirnet-silicon` định nghĩa workflows cho HDL, lint, simulation, synthesis, equivalence, static timing, floorplanning, placement/CTS/routing, DRC/LVS và báo cáo dưới tool/PDK phù hợp. `cirnet-fpga` vẫn sở hữu bitstream/board/timing FPGA; `silicon` tập trung ASIC/PDK/flow. Mọi toolchain/PDK có version, license và phạm vi phân phối; không commit proprietary IP/PDK khi chưa có quyền. **RTL simulation ≠ FPGA electrical verification ≠ ASIC sign-off ≠ tapeout authorization**.
+`cirnet-silicon` định nghĩa workflows cho HDL, lint, simulation, synthesis, equivalence, static timing, floorplanning, placement/CTS/routing, DRC/LVS và báo cáo dưới tool/PDK phù hợp. `cirnet-embedded-hardware` vẫn sở hữu bitstream/board/timing FPGA; `silicon` tập trung ASIC/PDK/flow. Mọi toolchain/PDK có version, license và phạm vi phân phối; không commit proprietary IP/PDK khi chưa có quyền. **RTL simulation ≠ FPGA electrical verification ≠ ASIC sign-off ≠ tapeout authorization**.
 
 ### 12.4 AI tutor và engineering copilot
 
@@ -622,7 +622,7 @@ Unit/domain tests đặt gần code owner. Cross-repo conformance fixtures do Co
 
 ### 18.1 Một tài liệu kiến trúc chuẩn, nhiều đặc tả chuyên sâu
 
-Cặp Anh–Việt này là tham chiếu kiến trúc đích Ecosystem có thẩm quyền về ranh giới tổ chức và tích hợp trong các kho Next. Repo sản phẩm liên kết đến tài liệu này và kiến trúc Lab-First hoặc FPGA tương ứng. Cập nhật cặp ngôn ngữ theo cùng nội dung và giữ các phiên bản lịch sử trong Git.
+Cặp Anh–Việt này là tham chiếu kiến trúc đích Ecosystem có thẩm quyền về ranh giới tổ chức và tích hợp trong các kho CIRNET chính thức. Repo sản phẩm liên kết đến tài liệu này và kiến trúc Lab-First hoặc FPGA tương ứng. Cập nhật cặp ngôn ngữ theo cùng nội dung và giữ các phiên bản lịch sử trong Git.
 
 ### 18.2 Quy tắc cho AI Agents
 

@@ -14,7 +14,7 @@ This specification brings the earlier FPGA architecture into the **CIRNET** ecos
 
 ### Implementation context at the review date
 
-The [Next system architecture](en/architecture/system.md) describes the native runtime and physical qualification status.
+The [native system architecture](en/architecture/system.md) describes the native runtime and physical qualification status.
 
 - On `master`, `cirnet-fpga` currently contains a **Lab-First RTL scaffold**, including `fpga/experiment-controller/rtl/top.v`, `fpga/instrument/rtl/top.v`, testbenches under `fpga/simulation/`, verification tooling, lockfiles, and EN/VI documentation. Its README describes a **0.2.2 source scaffold candidate**; it does **not** claim board-ready firmware.
 - `cirnet-hardware` owns the **Rust HardwareStation, private transport, Stop, station lifecycle, and worker supervision**; `cirnet-remote` owns authorization, scheduler/leases, experiments, and system-release selection.
@@ -1294,7 +1294,7 @@ JTAG/configuration/bench overrides must not unintentionally bypass protection. T
 
 | Role | Purpose | Primary owner | Authority and requirements |
 |---|---|---|---|
-| **Lab Control FPGA** | Scanning, protected routing, clock/trigger, measurements, instruments, and safety interlocks | `cirnet-fpga` (RTL) + `cirnet-hardware` (host/driver) | Approved bitstreams only, programming by authorized operators, proven board-specific fail-safe behavior |
+| **Lab Control FPGA** | Scanning, protected routing, clock/trigger, measurements, instruments, and safety interlocks | `cirnet-embedded-hardware` (RTL) + `cirnet-hardware` (host/driver) | Approved bitstreams only, programming by authorized operators, proven board-specific fail-safe behavior |
 | **Learner FPGA Target** | Students write HDL, build, simulate, flash, and debug on an educational board | `cirnet-ide`, `cirnet-toolchains`, `cirnet-devices`; `cirnet-silicon` owns the EDA learning workflow | Artifacts are untrusted by default; require sandboxing, board isolation, and distinct programming permissions |
 
 **Never permit** learner-generated bitstreams to overwrite the Lab Control FPGA connected to students' protected electrical fabric. Even when both devices use the same FPGA family, they must be **separate devices or a separately proven trust/isolation boundary** with verified interlocks. Distinguish artifact namespaces, toolchain profiles, execution policies, and release channels.
@@ -1324,7 +1324,7 @@ CIRNET Interface / Studio (viewer, not hardware authority)
   -> cirnet-remote (Rust): identity, authorization, lease, experiment
   -> cirnet-contracts: selected version + schema/protocol identity
   -> cirnet-hardware (Rust): plan validation, transport, safe stop
-  -> cirnet-fpga RTL: permit/route/scan/trigger/capture under hard interlock
+  -> cirnet-embedded-hardware RTL: permit/route/scan/trigger/capture under hard interlock
   -> protected external electronics + actual student DUT
   -> real observations + capture quality + checksum
   -> Hardware -> Remote -> authorized UI/LMS/Analyze consumers
@@ -1342,7 +1342,7 @@ Applications such as Lab, Analyze, Silicon, Robotics, and IoT may **read** wavef
 
 | Repository | FPGA-related ownership | Prohibited responsibility |
 |---|---|---|
-| `cirnet-fpga` | RTL, FPGA module logic, target-specific SDC/QSF, testbenches, source/bitstream provenance, and board-specific timing evidence | No Auth, Scheduler, Projects, Grading, REST, or circuit simulation engine |
+| `cirnet-embedded-hardware` | RTL, FPGA module logic, target-specific SDC/QSF, testbenches, source/bitstream provenance, and board-specific timing evidence | No Auth, Scheduler, Projects, Grading, REST, or circuit simulation engine |
 | `cirnet-hardware` | Rust HardwareStation, protected transport/driver, station safe-state, worker supervision, applied-image acknowledgment | Cannot redefine canonical schemas or replace hard electrical protection |
 | `cirnet-remote` | Experiment admission, auth delegation, durable leases/quarantine, provenance lock, capture/API | Cannot write FPGA/MUX registers from public request handlers |
 | `cirnet-contracts` | Canonical types, FPGA protocol mapping, RPC, hardware capabilities, capture envelope | Does not implement RTL or certify electrical limits |
@@ -1390,7 +1390,7 @@ EngineeringProjectRevision
 
 ## 36.3 Version domains
 
-Maintain separate versions for repository tags, RTL source, bitstream, ICD/wire ABI, Contracts schema, BoardProfile, toolchain, pinout/PCB, FPGA IP core, capture encoding, and selected CIRNET system release. The common tag/Release naming convention is **`<repo_name>-<version>`**; `cirnet-fpga-0.2.2` is only a **naming example**, not a claim that the tag has been published. Do not rewrite pinned history.
+Maintain separate versions for repository tags, RTL source, bitstream, ICD/wire ABI, Contracts schema, BoardProfile, toolchain, pinout/PCB, FPGA IP core, capture encoding, and selected CIRNET system release. The common tag/Release naming convention is **`<repo_name>-<version>`**; `cirnet-embedded-hardware-0.2.2` is only a **naming example**, not a claim that the tag has been published. Do not rewrite pinned history.
 
 ---
 

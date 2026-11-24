@@ -1,4 +1,4 @@
-"""Prepare independent regression fixtures and run the Remote Next fixture checks."""
+"""Prepare independent regression fixtures and run the Remote fixture checks."""
 
 import argparse
 import hashlib
@@ -255,7 +255,7 @@ def main():
     if sys.version_info[:2] != (3, 14) or sys.platform != "win32" or platform.machine() != "AMD64":
         parser.error("The locked reference wheels require Windows x64 Python 3.14.")
 
-    contracts = Path(os.environ.get("CIRNET_CONTRACTS_ROOT", ROOT.parent / "cirnet-contracts-next"))
+    contracts = Path(os.environ.get("CIRNET_CONTRACTS_ROOT", ROOT.parent / "cirnet-contracts"))
     contracts = contracts.resolve(strict=True)
     allocator = contracts / "tools/artifact-paths/artifact-paths.mjs"
     context = json.dumps({"owner": "cirnet-remote-regression",
