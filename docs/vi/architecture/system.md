@@ -8,4 +8,22 @@ Trong bản triển khai native, Interface chỉnh sửa CircuitGraph logic và 
 
 Remote phục vụ tài nguyên trình duyệt cùng origin với API trong ứng viên Windows. Hardware RPC 2.0 cục bộ vẫn tách riêng. Hardware xác minh SHA-256 của binary Simulator khi khởi động. Gói Windows chứa đủ tài nguyên native và Remote kiểm chứng lựa chọn ứng viên tại ranh giới artifact.
 
+## Cấu trúc kho mã
+
+Các repo lõi giữ mã production trong thư mục gốc phù hợp với ngôn ngữ như `src/` và `rtl/`. Điểm vào build và kiểm thử nằm trong `scripts/` hoặc manifest của toolchain. Test, fixture và tài nguyên sinh tự động nằm cùng tính năng hoặc bộ sinh sở hữu chúng. Mỗi repo duy trì tài liệu tham chiếu riêng trong `docs/en/` và `docs/vi/`. Remote ghi mã băm chính xác của nguồn và artifact trong ứng viên, còn mỗi repo sản xuất duy trì lock phụ thuộc của mình.
+
+| Đường dẫn | Trách nhiệm |
+| --- | --- |
+| [`src/api/`](../../../src/api/) | Tuyến HTTP, giải mã query và body, xuất OpenAPI và truyền sự kiện WebSocket. |
+| [`src/application/`](../../../src/application/) | Thao tác xác thực, dự án, bài tập, trạm và thí nghiệm, gồm điều phối lease và Stop. |
+| [`src/domain/`](../../../src/domain/) | Quy tắc biên dịch, topology, định tuyến và ngữ nghĩa số. |
+| [`src/infrastructure/`](../../../src/infrastructure/) | Cơ sở dữ liệu và migration, client Hardware cục bộ, phục vụ web cùng origin và bằng chứng chẩn đoán. |
+| [`deployment/`](../../../deployment/README.md) | Trình chạy ứng viên Windows và đầu vào systemd, nginx cho Linux. |
+| [`scripts/`](../../../scripts/) | Chọn nguồn, hợp nhất bản dựng native, xác minh manifest và kiểm thử smoke trên gói. |
+| [`tests/`](../../../tests/) | Kiểm thử tích hợp Rust và fixture đối chiếu ngoại tuyến. |
+
+Binary trong `src/main.rs` lắp ghép dịch vụ và `src/lib.rs` cung cấp các đường dẫn module crate hiện có. Pipeline ứng viên đóng gói tệp trình duyệt từ bản dựng Interface đã chọn. Thư mục `assets/` của repo lưu artwork và ảnh mẫu lịch sử để tham khảo nguồn.
+
+## Môi trường đích và nghiệm thu
+
 Production hướng đến Linux với PostgreSQL và origin HTTPS khai báo rõ. Chạy vật lý yêu cầu bảo vệ đã kiểm chứng, quan sát dây nối và năng lực trạm được cấp phép. FPGA vật lý và ngspice vẫn UNAVAILABLE khi chưa có cấu hình đủ điều kiện. Xem [hợp đồng an toàn vật lý](physical-lab-safety-contract.md) và [hướng dẫn triển khai](../../../deployment/README.md).
