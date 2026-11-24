@@ -8,7 +8,13 @@ async fn check(backend: &str) {
     )
     .unwrap();
     let f = &fixture[backend];
-    let url = f["url"].as_str().unwrap();
+    let postgres_url = (backend == "postgres")
+        .then(|| std::env::var("CIRNET_REMOTE_PROJECT_POSTGRES").ok())
+        .flatten();
+    let url = postgres_url
+        .as_deref()
+        .or_else(|| f["url"].as_str())
+        .expect("select a disposable project database");
     let config = Config::from_vars(
         &[("CIRNET_DATABASE_URL".into(), url.into())]
             .into_iter()

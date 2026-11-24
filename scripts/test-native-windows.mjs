@@ -67,14 +67,17 @@ function browserVirtualRun() {
   assert.equal(web.sourceFingerprint, manifest.repositories[repositories.interface].sourceSha256)
   const selection = JSON.parse(readFileSync(join(browserRoot, '.artifacts/selection.json')))
   for (const [role, expected] of [
-    ['npm', web.contractsSha256], ['native_crate', web.contractsCrateSha256],
-    ['remote_openapi', web.remoteOpenapiSha256],
+    ['npm', web.contractsSha256],
+    ['dev_npm', manifest.files.find(file => file.path === `extras/cirnet-artifact-paths-${manifest.version}.tgz`)?.sha256],
+    ['native_crate', web.contractsCrateSha256], ['remote_openapi', web.remoteOpenapiSha256],
   ]) {
+    assert.match(expected ?? '', /^[a-f0-9]{64}$/)
     assert.equal(selection[role].sha256, expected)
     assert.equal(sha256(selection[role].path), expected)
   }
   const result = spawnSync(process.execPath, [join(browserRoot, 'scripts/e2e.mjs'),
-    'test-packaged', '--forbid-only', '--grep', 'real virtual AND circuit|Stop during a real committed Create|Component groups, search, real drag placement'], {
+    'test-packaged', '--forbid-only', '--grep',
+    'real virtual AND circuit|Stop during a real committed Create|hard reload after a committed Create|Component groups, search, real drag placement'], {
     cwd: browserRoot, encoding: 'utf8', windowsHide: true, timeout: 360000,
     env: { ...process.env, CIRNET_E2E_API_TARGET: origin, CIRNET_E2E_ADMIN_PASSWORD: password,
       CIRNET_E2E_STATIC_FINGERPRINT: web.sourceFingerprint, CIRNET_E2E_BROWSER_CACHE: browserCache },
@@ -86,10 +89,16 @@ function browserVirtualRun() {
   results.push({ action: 'BrowserVirtualRun', exit: result.status })
   const records = output.split(/\r?\n/).filter(line => line.startsWith('{"experimentId":'))
   assert.equal(records.length, 1, 'Expected one browser virtual-capture receipt')
-  const { experimentId, captureId } = JSON.parse(records[0])
+  assert.match(output, /^\s*4 passed\b/m, 'Expected all four installed browser cases to execute')
+  const { experimentId, captureId, captureSha256, sampleCount, samples, reconnected, replayedCreate, replayedRun } = JSON.parse(records[0])
   assert.match(experimentId, /^[0-9a-f]{32}$/)
   assert.match(captureId, /^[0-9a-f]{32}$/)
-  return { experimentId, captureId }
+  assert.match(captureSha256, /^[0-9a-f]{64}$/)
+  assert.equal(samples.length, sampleCount)
+  assert.equal(reconnected, true)
+  assert.equal(replayedCreate, 0)
+  assert.equal(replayedRun, 0)
+  return { experimentId, captureId, captureSha256, sampleCount, samples, reconnected, replayedCreate, replayedRun }
 }
 
 function observeProcesses(supervisor, requireWorker) {
@@ -197,6 +206,13 @@ async function withInstance(state, callback, extra = []) {
     const exit = await ended
     log.end()
     assert.equal(exit, 0, 'Supervisor did not confirm clean shutdown')
+    const snapshot = processSnapshots.find(entry => entry.supervisor === child.pid)
+    if (snapshot) {
+      for (const { pid, executable } of snapshot.processes) {
+        assert.throws(() => process.kill(pid, 0), { code: 'ESRCH' }, `${executable} is still running after Stop`)
+      }
+      snapshot.exitedAfterStop = true
+    }
   }
 }
 
@@ -317,6 +333,7 @@ if (capture) {
   const name = `${capture.captureId}.ncap`
   const bytes = readFileSync(join(data, 'captures', name))
   assert(bytes.length > 0)
+  assert.equal(digest(bytes), capture.captureSha256, 'Stored NCAP differs from the browser payload')
   for (const root of [backup, restored]) assert.deepEqual(readFileSync(join(root, 'captures', name)), bytes)
   Object.assign(capture, { size: bytes.length, sha256: digest(bytes), backupAndRestoreMatch: true })
 }

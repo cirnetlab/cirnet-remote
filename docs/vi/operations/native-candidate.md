@@ -67,8 +67,12 @@ node scripts/test-native-windows.mjs $result.directory $result.manifestSha256 $c
 theo phiên bản Playwright trong lockfile của Interface ở phiên build. Bài test
 cài ứng viên vào thư mục mới, kiểm tra việc từ chối tệp bị sửa, chạy Remote,
 Hardware và Simulator qua launcher, rồi kiểm tra thực thi ảo bằng trình
-duyệt, Stop, lưu dữ liệu và khôi phục snapshot. Bỏ đối số Chromium sẽ chạy
-phạm vi kiểm tra bản cài và API.
+duyệt, kết nối lại luồng sự kiện, Stop, lưu dữ liệu và khôi phục snapshot.
+Trình duyệt kiểm tra mốc thời gian, giá trị và SHA-256 của bản thu mạch AND
+ảo. Bài test kiểm tra bản thu đã lưu, bản sao lưu và bản khôi phục khớp với
+dữ liệu trình duyệt nhận được, đồng thời xác nhận các tiến trình native đã
+quan sát thoát sau Stop. Bỏ đối số Chromium sẽ chạy phạm vi kiểm tra bản cài
+và API.
 
 FPGA vật lý và ngspice vẫn ở trạng thái **UNAVAILABLE** trong ứng viên phát
 triển này. Để nghiệm thu sản xuất, cần bằng chứng tương ứng với máy triển

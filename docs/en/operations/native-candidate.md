@@ -67,8 +67,12 @@ node scripts/test-native-windows.mjs $result.directory $result.manifestSha256 $c
 installed by the staged Interface's locked Playwright dependency. The test
 installs into a fresh directory, checks artifact tamper rejection, runs the
 Remote, Hardware and Simulator via the launcher, and exercises browser virtual
-execution, Stop, persistence and snapshot restore. Omitting the Chromium
-argument runs the installation and API checks with reduced coverage.
+execution, event stream reconnect, Stop, persistence and snapshot restore.
+The browser verifies the virtual AND capture's timestamps, values and SHA-256.
+The smoke test checks that the stored, backed-up and restored capture bytes
+match the browser payload and that the observed native processes exit after
+Stop. Omitting the Chromium argument runs the installation and API checks with
+reduced coverage.
 
 Physical FPGA and ngspice remain **UNAVAILABLE** for this development
 candidate. Production acceptance requires the applicable evidence for the

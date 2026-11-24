@@ -8,6 +8,38 @@ Create the Actions secret `CIRNET_DEPENDENCIES_READ_TOKEN` in [the cirnetlab org
 
 Allocate an external session with the Contracts Next artifact allocator. Place Cargo targets, database files and logs there. Set CIRNET_CONTRACTS_ROOT to the selected Contracts Next checkout and run cargo fmt --all --check and cargo test --locked. For CLI migration verification, set CIRNET_REMOTE_CLI_DIR to a new directory inside that session and run cargo test --locked --test cli -- --ignored.
 
-Additional fixture-backed tests cover legacy compatibility, SQLite and PostgreSQL migration, runtime fault transport, scheduler authority and capture integrity. Their ignore messages name the required inputs. The optional Python fixtures in tests/reference run in a separate verification environment. The production binary uses Rust and the native artifacts.
+## Legacy regression fixtures
+
+Run the Windows x64 fixture checks from the Remote Next checkout with Python
+3.14, Node, Git, and the pinned Rust toolchain. Set `CIRNET_ARTIFACTS_DIR` to the
+absolute external output parent and `CIRNET_CONTRACTS_ROOT` to the selected
+Contracts Next checkout.
+
+```powershell
+python -I -B tests/reference/verify.py
+python -I -B tests/reference/verify.py --postgres-dsn-file <owned-dsn-file>
+```
+
+The runner reads exact historical Git objects from sibling `cirnet-remote`,
+`cirnet-contracts` and `cirnet-simulator` repositories. Use `--legacy-root` to
+select another parent directory. It recovers the legacy database schema from
+the tracked pre-retirement revision. The [wheel lock](../../../tests/reference/requirements-windows.lock)
+pins Python dependencies by SHA-256. Use `--wheelhouse` with cached wheels and
+`--offline-cargo` with cached Cargo sources for an offline run.
+
+The Contracts allocator owns the generated corpora, SQLite and session
+fixtures, Cargo builds, and logs. `--prepare-only` creates SQLite fixtures and
+records corpus hashes without running Cargo. For PostgreSQL, use a disposable
+server and a file containing its loopback administrator URL in the form
+`postgresql://user:password@127.0.0.1:port/postgres`. The runner creates and
+removes isolated databases with unique names.
+
+The selected ignored tests exercise compiler, topology, routing, HTTP body,
+auth, project and assignment parity, database migration and write fencing,
+scheduler authority, Stop claims, WebSocket protocol, and capture integrity.
+The unit station corpus uses a loopback gRPC test peer. The native package
+verification exercises the actual Hardware and Simulator. Historical
+Stage 3 binary replay, Linux timing and physical HIL retain their own inputs
+and result status. Python runs only in the isolated fixture environment.
 
 Run the packaged system verification against the artifact manifest before accepting a candidate. Record the exact sources, toolchains and inputs, along with tests that passed, failed or could not run. Link approved summaries to evidence stored outside Git.

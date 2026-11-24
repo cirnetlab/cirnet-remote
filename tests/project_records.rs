@@ -227,11 +227,13 @@ async fn sqlite_project_roundtrip_cas_and_authority() {
 async fn postgres_project_roundtrip_cas_and_authority() {
     let path = std::env::var("CIRNET_REMOTE_PROJECT_FIXTURE").unwrap();
     let fixture: Value = serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
-    lifecycle(
-        fixture["postgres"]["url"].as_str().unwrap(),
-        &fixture["postgres"],
-    )
-    .await;
+    let url = std::env::var("CIRNET_REMOTE_PROJECT_POSTGRES").ok();
+    let postgres = &fixture["postgres"];
+    let url = url
+        .as_deref()
+        .or_else(|| postgres["url"].as_str())
+        .expect("select a disposable PostgreSQL project database");
+    lifecycle(url, postgres).await;
 }
 
 async fn set_revision(url: &str, id: &str, revision: i64) {
