@@ -44,3 +44,7 @@ verification exercises the actual Hardware and Simulator. Linux timing and physi
 and result status. Python runs only in the isolated fixture environment.
 
 Run the packaged system verification against the artifact manifest before accepting a candidate. Record the exact sources, toolchains and inputs, along with tests that passed, failed or could not run. Link approved summaries to evidence stored outside Git.
+
+## Local development storage
+
+With `CIRNET_LOCAL_STORAGE_ROOT` configured, build-native-windows.ps1 can omit `-OutputParent` and use the cirnet-remote namespace. An explicit parent remains supported. Staged sources, targets and verification share the candidate context and session. Use a fresh session for another source selection. A reviewed receipt can verify an existing session in its original location.

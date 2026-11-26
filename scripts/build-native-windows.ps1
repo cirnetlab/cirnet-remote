@@ -2,7 +2,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory)][string] $Selection,
-    [Parameter(Mandatory)][string] $OutputParent,
+    [ValidateNotNullOrEmpty()][string] $OutputParent,
     [switch] $Offline
 )
 $ErrorActionPreference = 'Stop'
@@ -19,14 +19,31 @@ $repoNames = @(
 )
 $roots = @($repoNames | ForEach-Object { Join-Path $workspace $_ })
 $allocator = Join-Path $roots[0] 'tools/artifact-paths/cirnet_artifact_paths/artifact-paths.mjs'
-$env:CIRNET_ARTIFACTS_CONTEXT = @{ owner = 'cirnet-native-candidate'; roots = $roots } | ConvertTo-Json -Compress
-$env:CIRNET_ARTIFACTS_SESSION = $null
-$env:NETCIRCUIT_ARTIFACTS_SESSION = $null
-$env:CIRNET_ARTIFACTS_SESSION = node $allocator --directory (Resolve-Path -LiteralPath $OutputParent).Path
-$session = $env:CIRNET_ARTIFACTS_SESSION
+$context = @{ owner = 'cirnet-native-candidate'; roots = $roots } | ConvertTo-Json -Compress
+if ($null -eq $env:CIRNET_LOCAL_STORAGE_ROOT) {
+    if (!$OutputParent) { throw 'Supply -OutputParent or configure CIRNET_LOCAL_STORAGE_ROOT.' }
+    $env:CIRNET_ARTIFACTS_SESSION = $env:NETCIRCUIT_ARTIFACTS_SESSION = $null
+}
+elseif ($env:CIRNET_ARTIFACTS_CONTEXT -or $env:NETCIRCUIT_ARTIFACTS_CONTEXT) {
+    $inherited = node $allocator --context-info
+    $expected = node $allocator --context-info --context $context
+    if ($inherited -cne $expected) { throw 'The inherited artifact context does not own this native candidate.' }
+}
+$env:CIRNET_ARTIFACTS_CONTEXT = $env:NETCIRCUIT_ARTIFACTS_CONTEXT = $context
+if ($OutputParent -and $null -eq $env:CIRNET_LOCAL_STORAGE_ROOT) {
+    $OutputParent = (Resolve-Path -LiteralPath $OutputParent).Path
+}
+$session = if ($OutputParent) { node $allocator --directory $OutputParent } else { node $allocator }
+if (Test-Path -LiteralPath (Join-Path $session 'selection.json')) {
+    throw 'This candidate session already has a source selection. Verify its assembly receipt or choose a fresh session.'
+}
+$env:CIRNET_ARTIFACTS_SESSION = $env:NETCIRCUIT_ARTIFACTS_SESSION = $session
+$env:CIRNET_ARTIFACTS_DIR = $env:NETCIRCUIT_ARTIFACTS_DIR = Split-Path -Parent $session
 Write-Host "Candidate build session $session"
 $selectionPath = Join-Path $session 'selection.json'
-Copy-Item -LiteralPath $Selection -Destination $selectionPath
+$selectionBytes = [IO.File]::ReadAllBytes((Resolve-Path -LiteralPath $Selection).Path)
+$selectionFile = [IO.File]::Open($selectionPath, 'CreateNew', 'Write', 'None')
+try { $selectionFile.Write($selectionBytes) } finally { $selectionFile.Dispose() }
 $sources = Join-Path $session 'src'
 node (Join-Path $PSScriptRoot 'native-source-selection.mjs') stage $selectionPath $sources
 $lockedSources = Get-Content -LiteralPath $selectionPath -Raw | ConvertFrom-Json -AsHashtable

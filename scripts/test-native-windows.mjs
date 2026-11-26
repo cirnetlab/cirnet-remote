@@ -16,8 +16,10 @@ const build = dirname(bundle)
 const ownership = JSON.parse(readFileSync(join(build, '.cirnet-artifact-session.json'), 'utf8'))
 const contractsSource = join(build, 'src', repositories.contracts)
 const allocator = join(contractsSource, 'tools/artifact-paths/cirnet_artifact_paths/artifact-paths.mjs')
-process.env.CIRNET_ARTIFACTS_CONTEXT = JSON.stringify(ownership.context)
-process.env.CIRNET_ARTIFACTS_SESSION = build
+// A reviewed receipt explicitly selects its existing integration session.
+process.env.CIRNET_ARTIFACTS_CONTEXT = process.env.NETCIRCUIT_ARTIFACTS_CONTEXT = JSON.stringify(ownership.context)
+process.env.CIRNET_ARTIFACTS_SESSION = process.env.NETCIRCUIT_ARTIFACTS_SESSION = build
+process.env.CIRNET_ARTIFACTS_DIR = process.env.NETCIRCUIT_ARTIFACTS_DIR = dirname(build)
 const { getArtifactDirectory } = await import(pathToFileURL(allocator).href)
 const browserRoot = browserCache ? join(build, 'src', repositories.interface) : undefined
 const manifestPath = join(bundle, 'native-manifest.json')

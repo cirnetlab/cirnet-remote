@@ -43,3 +43,7 @@ Kiểm chứng gói native chạy Hardware và Simulator thật. Đo thời gian
 riêng. Python chỉ chạy trong môi trường fixture cô lập.
 
 Chạy kiểm chứng toàn hệ thống trên gói ứng viên theo manifest trước khi chấp nhận. Ghi lại chính xác nguồn, toolchain, đầu vào và các bài đã qua, thất bại hoặc chưa thể chạy. Dẫn từ bản tóm tắt đã duyệt đến bằng chứng nằm ngoài Git.
+
+## Lưu trữ phát triển cục bộ
+
+Khi đã đặt `CIRNET_LOCAL_STORAGE_ROOT`, build-native-windows.ps1 có thể bỏ `-OutputParent` và dùng namespace cirnet-remote. Vẫn có thể chỉ định thư mục cha. Mã nguồn dàn dựng, đầu ra build và xác minh dùng chung ngữ cảnh và phiên candidate. Dùng phiên mới cho tập mã nguồn khác. Có thể xác minh phiên tại vị trí ban đầu bằng biên nhận đã review.
