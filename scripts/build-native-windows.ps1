@@ -33,6 +33,8 @@ $env:CIRNET_ARTIFACTS_CONTEXT = $env:NETCIRCUIT_ARTIFACTS_CONTEXT = $context
 if ($OutputParent -and $null -eq $env:CIRNET_LOCAL_STORAGE_ROOT) {
     $OutputParent = (Resolve-Path -LiteralPath $OutputParent).Path
 }
+$Selection = (Resolve-Path -LiteralPath $Selection).Path
+node (Join-Path $PSScriptRoot 'native-source-selection.mjs') check $Selection
 $session = if ($OutputParent) { node $allocator --directory $OutputParent } else { node $allocator }
 if (Test-Path -LiteralPath (Join-Path $session 'selection.json')) {
     throw 'This candidate session already has a source selection. Verify its assembly receipt or choose a fresh session.'
@@ -41,7 +43,7 @@ $env:CIRNET_ARTIFACTS_SESSION = $env:NETCIRCUIT_ARTIFACTS_SESSION = $session
 $env:CIRNET_ARTIFACTS_DIR = $env:NETCIRCUIT_ARTIFACTS_DIR = Split-Path -Parent $session
 Write-Host "Candidate build session $session"
 $selectionPath = Join-Path $session 'selection.json'
-$selectionBytes = [IO.File]::ReadAllBytes((Resolve-Path -LiteralPath $Selection).Path)
+$selectionBytes = [IO.File]::ReadAllBytes($Selection)
 $selectionFile = [IO.File]::Open($selectionPath, 'CreateNew', 'Write', 'None')
 try { $selectionFile.Write($selectionBytes) } finally { $selectionFile.Dispose() }
 $sources = Join-Path $session 'src'

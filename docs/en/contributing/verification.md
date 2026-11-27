@@ -48,3 +48,5 @@ Run the packaged system verification against the artifact manifest before accept
 ## Local development storage
 
 With `CIRNET_LOCAL_STORAGE_ROOT` configured, build-native-windows.ps1 can omit `-OutputParent` and use the cirnet-remote namespace. An explicit parent remains supported. Staged sources, targets and verification share the candidate context and session. Use a fresh session for another source selection. A reviewed receipt can verify an existing session in its original location.
+
+For an explicit reuse check, run `node scripts/native-source-selection.mjs reuse-check RECEIPT EVIDENCE EVIDENCE_SHA256 MANIFEST_SHA256` in an x64 MSVC developer shell. Use the existing assembly receipt and independently pinned `native-smoke/.../result.json` from packaged browser verification. The check compares the source inventory and Git provenance, verifies the manifest and its files, and checks the pinned toolchain. Running the build command still requests a fresh assembly.
