@@ -1,6 +1,6 @@
 # CIRNET Remote — Lab-First v3.1
 
-> **Hồ sơ lịch sử.** Trang này mô tả topology phát hành trước đây. Dùng [CIRNET Lab-First](../../cirnet-architecture-lab-first-vi.md) cho các quyết định kiến trúc hiện tại.
+> **Hồ sơ lịch sử.** Trang này mô tả topology phát hành trước đây. Dùng [CIRNET Lab-First](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/tai-lieu-kien-tuc-he-thong/cirnet-architecture-lab-first-vi.md) cho các quyết định kiến trúc hiện tại.
 
 [English](../../en/history/lab-first-v3-1.md) · [Kiến trúc hệ thống](../architecture/system.md)
 

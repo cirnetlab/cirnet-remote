@@ -1,6 +1,6 @@
 # Hợp đồng an toàn phòng thí nghiệm vật lý
 
-[English](../../en/architecture/physical-lab-safety-contract.md) · [CIRNET Lab-First](../../cirnet-architecture-lab-first-vi.md) · [Tổng quan an toàn](physical-lab-safety.md)
+[English](../../en/architecture/physical-lab-safety-contract.md) · [CIRNET Lab-First](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/tai-lieu-kien-tuc-he-thong/cirnet-architecture-lab-first-vi.md) · [Tổng quan an toàn](physical-lab-safety.md)
 
 An toàn và tính đúng độc lập. Đánh giá linh kiện chưa nhận dạng bằng bằng
 chứng quan sát và năng lực bảo vệ của trạm.

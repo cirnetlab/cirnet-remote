@@ -18,7 +18,7 @@ both indexes. Use a fixed Git revision to cite superseded plans or specs.
 | --- | --- |
 | Root `README.md` | Introduce the repository and link the current indexes. |
 | `docs/en/` and `docs/vi/` | Maintain the current English guidance and its Vietnamese counterpart. Codex starts from the English index. |
-| [`docs/changelogs/`](../../changelogs/README.md) | Keep one `CHANGELOG_V<major>.md` per released major, with linked `vX.Y.Z` entries in descending order. |
+| [`docs/changelogs/`](../../changelogs/README.md) | Keep one `CHANGELOG_V<major>.md` per maintained major, with linked `vX.Y.Z` entries in descending order. |
 | README beside source | Describe the local component or package and link its paired guides. |
 | Verification, migration and archive records | Preserve the result, revision, artifact identity and limits of each recorded run. |
 
@@ -38,7 +38,7 @@ Use [Task Continuity](https://github.com/cirnetlab/cirnet-rules/blob/master/en/d
 
 After
 verification, update the relevant English and Vietnamese technical pages and
-the applicable changelog. Architecture pages describe system behavior and
+the shared English changelog. Architecture pages describe system behavior and
 decisions. Dated verification records preserve evidence.
 
 Give every published release a SemVer heading and a verified publication date.

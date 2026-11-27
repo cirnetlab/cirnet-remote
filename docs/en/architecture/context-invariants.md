@@ -4,7 +4,7 @@
 
 [Tiếng Việt](../../vi/architecture/context-invariants.md) · [Working context](context.md)
 
-[CIRNET Lab-First](../../cirnet-architecture-lab-first-en.md) governs Lab execution and safety.
+[CIRNET Lab-First](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/tai-lieu-kien-tuc-he-thong/cirnet-architecture-lab-first-en.md) governs Lab execution and safety.
 
 - Preserve the Web-first, Safety-gated single workspace. The selected release topology
   targets a Linux Mini PC with PostgreSQL. See [system topology](system.md)

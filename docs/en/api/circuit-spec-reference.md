@@ -3,7 +3,7 @@
 [Tiếng Việt](../../vi/api/circuit-spec-reference.md) · [Circuit and physical lab reference](circuit-and-physical-lab.md)
 
 The reference covers current graph versions, observed topology, station
-capabilities and NCAP formats. [CIRNET Lab-First](../../cirnet-architecture-lab-first-en.md)
+capabilities and NCAP formats. [CIRNET Lab-First](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/tai-lieu-kien-tuc-he-thong/cirnet-architecture-lab-first-en.md)
 governs system behavior. See
 [component placement](../architecture/component-placement.md) and the
 [physical safety contract](../architecture/physical-lab-safety-contract.md) for their detailed rules.

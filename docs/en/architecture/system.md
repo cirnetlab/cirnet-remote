@@ -2,7 +2,7 @@
 
 [Tiếng Việt](../../vi/architecture/system.md)
 
-The [Ecosystem Architecture](../../cirnetlab-architecture-en.md) defines the organization-wide target. [CIRNET Lab-First](../../cirnet-architecture-lab-first-en.md) governs Lab execution, ownership and station safety. The [FPGA Architecture](../../cirnetlab-FPGA-architecture-en.md) defines the FPGA and board target within those safety rules.
+The [Ecosystem Architecture](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/tai-lieu-kien-tuc-he-thong/cirnetlab-architecture-en.md) defines the organization-wide target. [CIRNET Lab-First](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/tai-lieu-kien-tuc-he-thong/cirnet-architecture-lab-first-en.md) governs Lab execution, ownership and station safety. The [FPGA Architecture](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/cirnetlab-FPGA-architecture-en.md) defines the FPGA and board target within those safety rules.
 
 In the native implementation, Interface edits the logical CircuitGraph and consumes Remote REST and WebSocket APIs. Remote owns authentication, authorization, projects, assignments, scheduling, durable leases, capture storage and system release selection. Hardware owns loopback RPC, station lifecycles and safe Stop. Its isolated native Simulator workers perform bounded digital and DC execution. Contracts owns canonical schemas, device data, RPC descriptors and NCAP. Embedded Hardware owns RTL and hardware-side qualification.
 

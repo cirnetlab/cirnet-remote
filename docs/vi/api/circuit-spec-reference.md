@@ -3,7 +3,7 @@
 [English](../../en/api/circuit-spec-reference.md) · [Tham chiếu mạch và phòng thí nghiệm vật lý](circuit-and-physical-lab.md)
 
 Trang tham chiếu mô tả các phiên bản đồ thị hiện hành, cấu trúc quan sát được,
-năng lực trạm và định dạng NCAP. [CIRNET Lab-First](../../cirnet-architecture-lab-first-vi.md)
+năng lực trạm và định dạng NCAP. [CIRNET Lab-First](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/tai-lieu-kien-tuc-he-thong/cirnet-architecture-lab-first-vi.md)
 quy định hành vi hệ thống. Xem [đặt linh kiện](../architecture/component-placement.md)
 và [hợp đồng an toàn vật lý](../architecture/physical-lab-safety-contract.md)
 để tra các yêu cầu chi tiết.

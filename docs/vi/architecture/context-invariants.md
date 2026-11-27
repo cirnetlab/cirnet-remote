@@ -2,7 +2,7 @@
 
 [English](../../en/architecture/context-invariants.md) · [Bối cảnh làm việc](context.md)
 
-[CIRNET Lab-First](../../cirnet-architecture-lab-first-vi.md) quy định thực thi Lab và an toàn.
+[CIRNET Lab-First](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/tai-lieu-kien-tuc-he-thong/cirnet-architecture-lab-first-vi.md) quy định thực thi Lab và an toàn.
 
 - Duy trì một không gian làm việc ưu tiên Web và có bước kiểm tra an toàn.
   Bản đang chọn nhắm đến Mini PC chạy Linux với PostgreSQL.

@@ -1,6 +1,6 @@
 # Physical Lab Safety Contract
 
-[Tiếng Việt](../../vi/architecture/physical-lab-safety-contract.md) · [CIRNET Lab-First](../../cirnet-architecture-lab-first-en.md) · [Safety overview](physical-lab-safety.md)
+[Tiếng Việt](../../vi/architecture/physical-lab-safety-contract.md) · [CIRNET Lab-First](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/tai-lieu-kien-tuc-he-thong/cirnet-architecture-lab-first-en.md) · [Safety overview](physical-lab-safety.md)
 
 Safety and correctness are independent. Evaluate an unknown component using
 the observed evidence and the station's protection capabilities.

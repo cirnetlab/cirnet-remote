@@ -2,7 +2,7 @@
 
 [English](../../en/architecture/system.md)
 
-[Kiến trúc Ecosystem](../../cirnetlab-architecture-vi.md) xác định đích cấp tổ chức. [CIRNET Lab-First](../../cirnet-architecture-lab-first-vi.md) quy định thực thi Lab, quyền sở hữu và an toàn trạm. [Kiến trúc FPGA](../../cirnetlab-FPGA-architecture-vi.md) xác định đích FPGA và bo mạch trong phạm vi các quy tắc an toàn đó.
+[Kiến trúc Ecosystem](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/tai-lieu-kien-tuc-he-thong/cirnetlab-architecture-vi.md) xác định đích cấp tổ chức. [CIRNET Lab-First](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/tai-lieu-kien-tuc-he-thong/cirnet-architecture-lab-first-vi.md) quy định thực thi Lab, quyền sở hữu và an toàn trạm. [Kiến trúc FPGA](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/cirnetlab-FPGA-architecture-vi.md) xác định đích FPGA và bo mạch trong phạm vi các quy tắc an toàn đó.
 
 Trong bản triển khai native, Interface chỉnh sửa CircuitGraph logic và dùng API REST, WebSocket của Remote. Remote sở hữu xác thực, phân quyền, dự án, bài tập, lập lịch, lease bền vững, kho bản thu và lựa chọn bản phát hành hệ thống. Hardware sở hữu RPC loopback, vòng đời trạm và Stop an toàn. Worker Simulator native cách ly thực thi số và DC trong giới hạn. Contracts sở hữu schema chuẩn, dữ liệu thiết bị, mô tả RPC và NCAP. Embedded Hardware sở hữu RTL và nghiệm thu phía phần cứng.
 

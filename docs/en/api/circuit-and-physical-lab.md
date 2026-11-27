@@ -1,6 +1,6 @@
 # Circuit and physical lab specification
 
-[Tiếng Việt](../../vi/api/circuit-and-physical-lab.md) · [Specification entry point](circuit-spec-reference.md) · [CIRNET Lab-First](../../cirnet-architecture-lab-first-en.md) · [Application API](application.md)
+[Tiếng Việt](../../vi/api/circuit-and-physical-lab.md) · [Specification entry point](circuit-spec-reference.md) · [CIRNET Lab-First](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/tai-lieu-kien-tuc-he-thong/cirnet-architecture-lab-first-en.md) · [Application API](application.md)
 
 ## CircuitGraph and placement
 

@@ -1,6 +1,6 @@
 # CIRNET Remote — Lab-First v3.1
 
-> **Historical record.** This page describes the former release topology. Use [CIRNET Lab-First](../../cirnet-architecture-lab-first-en.md) for current architecture decisions.
+> **Historical record.** This page describes the former release topology. Use [CIRNET Lab-First](https://github.com/cirnetlab/cirnet-rules/blob/master/docs/tai-lieu-kien-tuc-he-thong/cirnet-architecture-lab-first-en.md) for current architecture decisions.
 
 [Tiếng Việt](../../vi/history/lab-first-v3-1.md) · [System architecture](../architecture/system.md)
 

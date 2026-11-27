@@ -18,7 +18,7 @@ Dẫn chiếu kế hoạch hoặc đặc tả đã được thay thế bằng re
 | --- | --- |
 | `README.md` gốc | Giới thiệu repo và dẫn đến mục lục hiện hành. |
 | `docs/en/` và `docs/vi/` | Duy trì hướng dẫn tiếng Anh hiện hành và bản tiếng Việt tương ứng. Codex bắt đầu từ mục lục tiếng Anh. |
-| [`docs/changelogs/`](../../changelogs/README.md) | Giữ một `CHANGELOG_V<major>.md` cho mỗi major đã phát hành, với các mục `vX.Y.Z` có liên kết và xếp theo thứ tự giảm dần. |
+| [`docs/changelogs/`](../../changelogs/README.md) | Giữ một `CHANGELOG_V<major>.md` cho mỗi major được duy trì, với các mục `vX.Y.Z` có liên kết và xếp theo thứ tự giảm dần. |
 | README cạnh mã nguồn | Mô tả thành phần hoặc package tại chỗ và dẫn đến cặp hướng dẫn. |
 | Biên bản verification, migration và archive | Giữ kết quả, revision, định danh artifact và giới hạn của từng lượt đã ghi. |
 
@@ -36,7 +36,7 @@ diễn tả đích và ưu tiên trang cùng ngôn ngữ khi có bản tương �
 
 Dùng [Task Continuity](https://github.com/cirnetlab/cirnet-rules/blob/master/vi/docs/distribution.md#task-continuity) cho kế hoạch tạm thời, tiêu chí nghiệm thu và tiến độ. Giữ đặc tả thiết kế độc lập và kế hoạch dài hạn tại repo sở hữu rồi liên kết từ checkpoint. Đánh dấu hoàn tất sau khi kiểm chứng.
 
-Sau khi xác minh, cập nhật cặp trang kỹ thuật Anh–Việt và changelog
+Sau khi xác minh, cập nhật cặp trang kỹ thuật Anh–Việt và changelog tiếng Anh
 tương ứng. Trang kiến trúc mô tả hành vi hệ thống và các quyết định kỹ thuật.
 Biên bản xác minh theo ngày lưu bằng chứng.
 

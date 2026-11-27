@@ -1,4 +1,3 @@
-# Remote changelog · Nhật ký thay đổi
+# CIRNET Remote changelog index
 
-- [Version 0 development history · Lịch sử phát triển phiên bản 0](CHANGELOG_V0.md)
-- [English docs](../en/index.md) · [Tài liệu tiếng Việt](../vi/index.md)
+- [Version 0](CHANGELOG_V0.md)
