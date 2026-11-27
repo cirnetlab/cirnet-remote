@@ -49,3 +49,10 @@ Chạy kiểm chứng toàn hệ thống trên gói ứng viên theo manifest tr
 Khi đã đặt `CIRNET_LOCAL_STORAGE_ROOT`, build-native-windows.ps1 có thể bỏ `-OutputParent` và dùng namespace cirnet-remote. Vẫn có thể chỉ định thư mục cha. Mã nguồn dàn dựng, đầu ra build và xác minh dùng chung ngữ cảnh và phiên candidate. Dùng phiên mới cho tập mã nguồn khác. Có thể xác minh phiên tại vị trí ban đầu bằng biên nhận đã review.
 
 Để kiểm tra tái sử dụng, chạy `node scripts/native-source-selection.mjs reuse-check RECEIPT EVIDENCE EVIDENCE_SHA256 MANIFEST_SHA256` trong shell MSVC x64. Dùng biên nhận lắp ráp và `native-smoke/.../result.json` được ghim hash độc lập từ xác minh trình duyệt đóng gói. Lệnh đối chiếu danh sách nguồn, định danh Git, manifest, các tệp và toolchain đã ghim. Lệnh build vẫn yêu cầu lắp ráp mới.
+
+## Kiểm tra thay đổi tài liệu
+
+Chạy `git diff --check` trong repo này. Từ checkout `cirnet-rules` đã được
+duyệt, chạy `cargo run --offline --locked --bin check-docs -- --product --root PATH_TO_REMOTE`.
+Truyền `--new-file` cho mỗi tệp Markdown mới thuộc cấu trúc mà checker quét.
+Đối chiếu các cặp EN/VI đã sửa và xác minh đích liên kết giữa các repo.

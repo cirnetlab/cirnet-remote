@@ -34,18 +34,16 @@ CLI, đường dẫn, biến môi trường, phiên bản và mã nguồn giữa
 cấp tiêu đề rõ ràng và ghi ngôn ngữ cho khối lệnh. Dùng văn bản liên kết
 diễn tả đích và ưu tiên trang cùng ngôn ngữ khi có bản tương ứng.
 
-Tạo kế hoạch và đặc tả tương ứng cho mỗi công việc AI. Chỉ lưu kế hoạch trong
-`.superpowers/plans/`. Chỉ lưu đặc tả, tiêu chí nghiệm thu và checklist tiến độ
-trong `.superpowers/specs/`. Git bỏ qua các đường dẫn này trong checkout.
-Dùng `- [ ]` cho việc còn mở và chỉ chuyển thành `- [x]` sau khi xác minh đã
-hoàn tất. Sau khi xác minh, cập nhật cặp trang kỹ thuật Anh–Việt và changelog
+Dùng [Task Continuity](https://github.com/cirnetlab/cirnet-rules/blob/master/vi/docs/distribution.md#task-continuity) cho kế hoạch tạm thời, tiêu chí nghiệm thu và tiến độ. Giữ đặc tả thiết kế độc lập và kế hoạch dài hạn tại repo sở hữu rồi liên kết từ checkpoint. Đánh dấu hoàn tất sau khi kiểm chứng.
+
+Sau khi xác minh, cập nhật cặp trang kỹ thuật Anh–Việt và changelog
 tương ứng. Trang kiến trúc mô tả hành vi hệ thống và các quyết định kỹ thuật.
 Biên bản xác minh theo ngày lưu bằng chứng.
 
-Mỗi bản phát hành có tiêu đề SemVer, ngày có căn cứ và liên kết trong mục lục
-của tệp major. Phân loại thay đổi đã xác minh theo Added, Changed, Fixed hoặc
-Breaking Changes và bỏ các nhóm trống. Dẫn tag, commit hoặc mã nguồn và nêu
-căn cứ ngày. Ghi thay đổi chưa phát hành trong mục Unreleased.
+Mỗi bản phát hành công khai cần tiêu đề SemVer và ngày phát hành đã xác minh.
+Gắn nhãn đúng trạng thái của mốc phát triển hoặc ứng viên native. Dẫn revision
+nguồn và manifest. Dùng Added, Changed, Fixed, Deprecated, Removed hoặc
+Security và bỏ nhóm trống. Ghi thay đổi đang chờ phát hành trong Unreleased.
 
 Mục lục lịch sử dẫn đến bản gốc có ngày và nêu rõ ngôn ngữ, phạm vi. Giữ
 đường dẫn bắt buộc, đầu vào được bảo vệ bằng hash hoặc marker, baseline và

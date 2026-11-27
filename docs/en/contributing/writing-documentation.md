@@ -34,18 +34,17 @@ when they have content. Use `lowercase-with-dashes.md`, one H1, clear heading
 levels and fenced examples with the language specified. Use descriptive link
 text and link to the same language when the counterpart exists.
 
-Create a plan and a matching spec for each AI task. Save the plan only under
-`.superpowers/plans/`. Save the spec, acceptance criteria and progress checklist
-only under `.superpowers/specs/`. These paths are ignored in this checkout.
-Use `- [ ]` for open work and `- [x]` only after verifying completion. After
+Use [Task Continuity](https://github.com/cirnetlab/cirnet-rules/blob/master/en/docs/distribution.md#task-continuity) for temporary plans, acceptance criteria and progress. Keep independent design specifications and durable plans with their owning repository and link them from the checkpoint. Mark items complete after verification.
+
+After
 verification, update the relevant English and Vietnamese technical pages and
 the applicable changelog. Architecture pages describe system behavior and
 decisions. Dated verification records preserve evidence.
 
-Give every release its SemVer heading, an evidenced date and a link in the
-major file's contents. Classify verified changes as Added, Changed, Fixed or
-Breaking Changes, omitting empty categories. Cite the release tag, commit or
-source and identify the date basis. Record pending changes under Unreleased.
+Give every published release a SemVer heading and a verified publication date.
+Label a development milestone or native candidate with its actual status. Cite
+its source revision and manifest. Use Added, Changed, Fixed, Deprecated, Removed
+or Security and omit empty categories. Record pending changes under Unreleased.
 
 History indexes point to dated originals and state their language and scope.
 Preserve fixed paths, hash/marker-protected inputs, baselines, and evidence.
